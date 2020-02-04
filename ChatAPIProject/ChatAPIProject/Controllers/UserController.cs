@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace ChatAPIProject.Controllers
+﻿namespace ChatAPIProject.Controllers
 {
-    public class UserController 
+    using System.Web.Http;
+
+    public class UserController : ApiController
     {
     }
 }
