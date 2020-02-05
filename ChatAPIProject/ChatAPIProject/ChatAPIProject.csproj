@@ -167,34 +167,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Data\CommunicationCode.cs" />
-    <Compile Include="Data\FriendshipCode.cs" />
-    <Compile Include="Data\MessageCode.cs" />
-    <Compile Include="Data\UserCode.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataModels\Communication.cs" />
-    <Compile Include="Models\DataModels\Friendship.cs" />
-    <Compile Include="Models\DataModels\Message.cs" />
-    <Compile Include="Models\DataModels\User.cs" />
-    <Compile Include="Models\InputModels\CommunicationInputModel.cs" />
-    <Compile Include="Models\InputModels\FriendshipInputModel.cs" />
-    <Compile Include="Models\InputModels\MessageInputModel.cs" />
-    <Compile Include="Models\InputModels\UserInputModel.cs" />
-    <Compile Include="Models\ResponseModels\CommunicationResponseModel.cs" />
-    <Compile Include="Models\ResponseModels\FriendshipResponseModel.cs" />
-    <Compile Include="Models\ResponseModels\MessageResponseModel.cs" />
-    <Compile Include="Models\ResponseModels\UserResponseModel.cs" />
-    <Compile Include="Models\ServiceModels\CommunicationServiseModel.cs" />
-    <Compile Include="Models\ServiceModels\FriendshipServiseModel.cs" />
-    <Compile Include="Models\ServiceModels\MessageServiseModel.cs" />
-    <Compile Include="Models\ServiceModels\UserServiseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\CommunicationService.cs" />
-    <Compile Include="Service\FriendshipService.cs" />
-    <Compile Include="Service\MessageService.cs" />
-    <Compile Include="Service\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -251,6 +227,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
