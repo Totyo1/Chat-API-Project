@@ -25,8 +25,8 @@ namespace ChatAPIProject.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 conn.Open();
 
-                cmd.Parameters.AddWithValue("username", user.Username);
-                cmd.Parameters.AddWithValue("password", user.Password);
+                cmd.Parameters.AddWithValue("@usr_nme", user.Username);
+                cmd.Parameters.AddWithValue("@pwd", user.Password);
 
                 cmd.ExecuteNonQuery();
                 conn.Close();
