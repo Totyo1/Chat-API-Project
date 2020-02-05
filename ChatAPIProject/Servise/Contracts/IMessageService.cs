@@ -1,7 +1,7 @@
 ﻿using ChatAPIProject.Models.ServiceModels.Message;
 using System.Collections.Generic;
 
-namespace Servise.Contracts
+namespace Service.Contracts
 {
     public interface IMessageService
     {

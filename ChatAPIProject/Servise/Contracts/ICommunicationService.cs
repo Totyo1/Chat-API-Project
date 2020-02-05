@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Servise.Contracts
+namespace Service.Contracts
 {
     public interface ICommunicationService
     {

@@ -1,5 +1,5 @@
 ﻿using Models.InputModels.Message;
-using Servise.Contracts;
+using Service.Contracts;
 using System.Linq;
 using System.Web.Http;
 

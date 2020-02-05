@@ -1,7 +1,8 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
 using ChatAPIProject.Service;
-using Servise.Contracts;
+using Service;
+using Service.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,9 +32,24 @@ namespace ChatAPIProject
             //Register your Web API controllers.  
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
+            builder.RegisterType(typeof(UserService))
+                   .As(typeof(IUserService))
+                   .InstancePerRequest();
 
             builder.RegisterType(typeof(MessageService))
                    .As(typeof(IMessageService))
+                   .InstancePerRequest();
+
+            builder.RegisterType(typeof(CommunicationService))
+                   .As(typeof(ICommunicationService))
+                   .InstancePerRequest();
+
+            builder.RegisterType(typeof(FriendshipService))
+                   .As(typeof(IFriendshipService))
+                   .InstancePerRequest();
+
+            builder.RegisterType(typeof(FriendRequestSevice))
+                   .As(typeof(IFriendRequestSevice))
                    .InstancePerRequest();
 
             //Set the dependency resolver to be Autofac.  
