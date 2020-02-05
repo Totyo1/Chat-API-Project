@@ -1,11 +1,11 @@
-﻿using ChatAPIProject.Models.ServiceModels;
-using ChatAPIProject.Models.ServiceModels.User;
+﻿
+using ChatAPIProject.Models.InputModels.User;
 
 namespace Servise.Contracts
 {
     public interface IUserService
     {
-        UserServiceModel CreateUser(string username, string password);
+         void CreateUser(UserInputModel inputModel);
 
     }
 }
