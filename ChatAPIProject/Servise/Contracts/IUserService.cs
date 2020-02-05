@@ -1,7 +1,5 @@
-﻿using ChatAPIProject.Models.DataModels;
-using ChatAPIProject.Models.InputModels;
-using ChatAPIProject.Models.ServiceModels;
-using ChatAPIProject.Models.ServiceModels.User;
+﻿
+using ChatAPIProject.Models.InputModels.User;
 
 namespace Servise.Contracts
 {
