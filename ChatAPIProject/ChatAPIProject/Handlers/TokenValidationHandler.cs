@@ -46,11 +46,11 @@ namespace ChatAPIProject.Handlers
 
                 return base.SendAsync(request, cancellationToken);
             }
-            catch (SecurityTokenValidationException e)
+            catch (SecurityTokenValidationException)
             {
                 statusCode = HttpStatusCode.Unauthorized;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 statusCode = HttpStatusCode.InternalServerError;
             }

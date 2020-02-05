@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ChatAPIProject.Models.ServiceModels
+namespace ChatAPIProject.Models.ServiceModels.Message
 {
-    public class FriendshipServiseModel
+    public class MessageServiceModel
     {
     }
 }

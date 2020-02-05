@@ -54,10 +54,13 @@
     <Compile Include="ResponseModels\FriendshipResponseModel.cs" />
     <Compile Include="ResponseModels\MessageResponseModel.cs" />
     <Compile Include="ResponseModels\UserResponseModel.cs" />
-    <Compile Include="ServiceModels\CommunicationServiseModel.cs" />
-    <Compile Include="ServiceModels\FriendshipServiseModel.cs" />
-    <Compile Include="ServiceModels\MessageServiseModel.cs" />
-    <Compile Include="ServiceModels\UserServiseModel.cs" />
+    <Compile Include="ServiceModels\Communication\CommunicationServiceModel.cs" />
+    <Compile Include="ServiceModels\Friendship\FriendshipServiceModel.cs" />
+    <Compile Include="ServiceModels\Message\MessageServiceModel.cs" />
+    <Compile Include="ServiceModels\User\UserServiceModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ServiceModels\FriendRequest\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
