@@ -63,5 +63,6 @@
   <ItemGroup>
     <Folder Include="InputModels\FriendRequest\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
