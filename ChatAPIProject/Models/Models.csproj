@@ -45,10 +45,10 @@
     <Compile Include="DataModels\Friendship.cs" />
     <Compile Include="DataModels\Message.cs" />
     <Compile Include="DataModels\User.cs" />
-    <Compile Include="InputModels\CommunicationInputModel.cs" />
-    <Compile Include="InputModels\FriendshipInputModel.cs" />
-    <Compile Include="InputModels\MessageInputModel.cs" />
-    <Compile Include="InputModels\UserInputModel.cs" />
+    <Compile Include="InputModels\Communicaton\CommunicationInputModel.cs" />
+    <Compile Include="InputModels\Friendship\FriendshipInputModel.cs" />
+    <Compile Include="InputModels\Message\MessageInputModel.cs" />
+    <Compile Include="InputModels\User\UserInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseModels\CommunicationResponseModel.cs" />
     <Compile Include="ResponseModels\FriendshipResponseModel.cs" />
@@ -60,6 +60,8 @@
     <Compile Include="ServiceModels\Message\MessageServiceModel.cs" />
     <Compile Include="ServiceModels\User\UserServiceModel.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="InputModels\FriendRequest\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

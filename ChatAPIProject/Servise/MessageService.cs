@@ -14,7 +14,7 @@ namespace ChatAPIProject.Service
             throw new NotImplementedException();
         }
 
-        public bool SendMessage(int communicationId, string context, int receiverId)
+        public bool SendMessage(int communicationId, string content, int receiverId)
         {
             throw new NotImplementedException();
         }
