@@ -9,5 +9,7 @@ namespace ChatAPIProject.Controllers
     [Authorize]
     public class CommunicationController : ApiController
     {
+
+
     }
 }
