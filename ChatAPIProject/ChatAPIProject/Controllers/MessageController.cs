@@ -15,6 +15,10 @@ namespace ChatAPIProject.Controllers
         private IMessageService messageService;
         private ICommunicationService communicationService;
 
+        public MessageController()
+        {
+        }
+
         public MessageController(IMessageService messageService, ICommunicationService communicationService)
         {
             this.messageService = messageService;
