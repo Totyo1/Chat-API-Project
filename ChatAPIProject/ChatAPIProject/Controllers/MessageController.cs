@@ -13,10 +13,12 @@ namespace ChatAPIProject.Controllers
     public class MessageController : ApiController
     {
         private IMessageService messageService;
+        private ICommunicationService communicationService;
 
-        public MessageController(IMessageService messageService)
+        public MessageController(IMessageService messageService, ICommunicationService communicationService)
         {
-            this.messageService = messageService;     
+            this.messageService = messageService;
+            this.communicationService = communicationService;
         }
 
         [HttpPost]
@@ -36,6 +38,20 @@ namespace ChatAPIProject.Controllers
             }
 
             return this.Ok("Message send successfully.");
+        }
+
+        [HttpGet]
+        [Route("GetMessages")]
+        public IHttpActionResult GetMessages(int id)
+        {
+            if(id < 0)
+            {
+                return this.BadRequest("Invalid request.");
+            }
+
+            var messages = this.messageService.GetMessages(id).ToList();
+
+            return this.Ok(messages);
         }
     }
 }
