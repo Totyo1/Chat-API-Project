@@ -27,5 +27,10 @@ namespace ChatAPIProject.Service
             User user = mapper.Map<User>(inputModel);
             this.userCode.CreateUser(user);
         }
+
+        public bool IsUserExist(string username, string password)
+        {
+            return this.userCode.IsUserExist(username, password);
+        }
     }
 }
