@@ -11,8 +11,7 @@ namespace ChatAPIProject.Controllers
     {
         public BaseController(T service)
         {
-            this.Se
-                rvice = service;
+            this.Service = service;
         }
 
         protected T Service { get; set; }

@@ -15,6 +15,7 @@ namespace ChatAPIProject.Service
     {
         private UserCode userCode;
         private MapperConfiguration config;
+
         public UserService()
         {
             this.userCode = new UserCode();
