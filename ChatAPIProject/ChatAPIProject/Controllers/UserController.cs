@@ -7,14 +7,10 @@ namespace ChatAPIProject.Controllers
 {
     
     [RoutePrefix("api/User")]
-    public class UserController : ApiController
+    public class UserController : BaseController<IUserService>
     {
-        private IUserService userService;
-
-        public UserController(IUserService userService)
-        {
-            this.userService = userService;
-        }
+        public UserController(IUserService userService) : base(userService)
+        { }
 
         [HttpPost]
         [Route("create")]
@@ -22,7 +18,7 @@ namespace ChatAPIProject.Controllers
         {
             try
             {
-                this.userService.CreateUser(inputModel);
+                this.Service.CreateUser(inputModel);
                 return this.Ok("Successfully created");
             }
             catch (Exception ex)

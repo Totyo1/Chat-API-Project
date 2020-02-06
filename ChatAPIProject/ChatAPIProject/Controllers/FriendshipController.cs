@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Service.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,7 +8,9 @@ using System.Web.Http;
 namespace ChatAPIProject.Controllers
 {
     [Authorize]
-    public class FriendshipController : ApiController
+    public class FriendshipController : BaseController<IFriendshipService>
     {
+        public FriendshipController(IFriendshipService friendshipService) : base(friendshipService)
+        { }
     }
 }

@@ -9,14 +9,10 @@ namespace ChatAPIProject.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Message")]
-    public class MessageController : ApiController
+    public class MessageController : BaseController<IMessageService>
     {
-        private IMessageService messageService;
-
-        public MessageController(IMessageService messageService)
-        {
-            this.messageService = messageService;
-        }
+        public MessageController(IMessageService messageService) : base(messageService)
+        {}
 
         [HttpPost]
         [Route("SendMessage")]
@@ -47,7 +43,7 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest("Invalid request.");
             }
 
-            var messages = this.messageService.GetMessages(id).ToList();
+            var messages = this.Service.GetMessages(id).ToList();
 
             return this.Ok(messages);
         }

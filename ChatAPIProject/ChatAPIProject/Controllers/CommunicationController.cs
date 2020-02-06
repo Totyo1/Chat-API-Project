@@ -9,20 +9,17 @@ namespace ChatAPIProject.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Communication")]
-    public class CommunicationController : ApiController
+    public class CommunicationController : BaseController<ICommunicationService>
     {
-        private readonly ICommunicationService communicationService;
 
-        public CommunicationController(ICommunicationService communicationService)
-        {
-            this.communicationService = communicationService;
-        }
+        public CommunicationController(ICommunicationService communicationService) : base(communicationService)
+         { }
 
         [HttpGet]
         [Route("GetCommunications")]
         public IHttpActionResult GetCommunications()
         {
-            var communicatons = this.communicationService.All().ToList();
+            var communicatons = this.Service.All().ToList();
 
             if(communicatons.Count() == 0)
             {
