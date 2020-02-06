@@ -57,6 +57,10 @@
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{588ed0ee-6699-4c21-b1a0-08883112e639}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{ebc59297-d158-42d1-9acb-e0beecedbd4d}</Project>
       <Name>Data</Name>
