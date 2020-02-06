@@ -1,6 +1,5 @@
 ﻿using ChatAPIProject.Models.InputModels.User;
 using Service.Contracts;
-
 using System;
 using System.Web.Http;
 
@@ -10,24 +9,24 @@ namespace ChatAPIProject.Controllers
     [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
-        private IUserService messageService;
+        private IUserService userService;
 
-        public UserController()
+        public UserController(IUserService userService)
         {
-            this.messageService = new Service.UserService();
+            this.userService = userService;
         }
+
         [HttpPost]
         [Route("create")]
-        public IHttpActionResult createUser(UserInputModel inputModel)
+        public IHttpActionResult CreateUser(UserInputModel inputModel)
         {
             try
             {
-                this.messageService.CreateUser(inputModel);
+                this.userService.CreateUser(inputModel);
                 return this.Ok("Successfully created");
             }
             catch (Exception ex)
             {
-
                 return this.BadRequest(ex.Message);
             }
         }
