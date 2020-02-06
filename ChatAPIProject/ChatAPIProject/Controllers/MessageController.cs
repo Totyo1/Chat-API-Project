@@ -1,7 +1,9 @@
 ﻿using Models.InputModels.Message;
 using Service.Contracts;
 using System.Linq;
+using System.Security.Claims;
 using System.Web.Http;
+using System.Web.Security;
 
 namespace ChatAPIProject.Controllers
 {
@@ -25,7 +27,8 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest(ModelState);
             }
 
-            bool isSent = this.messageService.SendMessage(model.CommunicationId, model.Content, model.ReceiverId);
+            var senderId = 1; //User.FindFirstValue(ClaimTypes.Name);
+            bool isSent = this.messageService.SendMessage(senderId, model.ReceiverId, model.Content);
 
             if (!isSent)
             {

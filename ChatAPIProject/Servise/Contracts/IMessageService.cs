@@ -7,6 +7,6 @@ namespace Service.Contracts
     {
         List<MessageServiceModel> GetMessages(int comminucationId);
 
-        bool SendMessage(int communicationId, string context, int receiverId);
+        bool SendMessage(int senderId, int receiverId, string context);
     }
 }

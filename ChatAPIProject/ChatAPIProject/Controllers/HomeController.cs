@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ChatAPIProject.Service;
+using Models.InputModels.Home;
+using Service.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,11 +11,35 @@ namespace ChatAPIProject.Controllers
 {
     public class HomeController : Controller
     {
+        private const string ERROR_MESSAGE = "Incorrect username or password!Username is required.Password must be minimum 5 and maximum 30 symbols.";
+        private const string SWAGGER_INDEX_PAGE = "http://localhost:52661/swagger/ui/index";
+
+        private IUserService userService;
+
+        public HomeController()
+        {
+            this.userService = new UserService();
+        }
+
+        [HttpGet]
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
 
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(HomeLoginInputModel model)
+        {
+            if (!ModelState.IsValid )//|| !this.userService.IsUserExist(model.Username, model.Password))
+            {
+                this.ViewData["ErrorMessage"] = ERROR_MESSAGE;
+                return this.View(model);
+            }
+            this.Response.Cookies.Set(new HttpCookie("Token"));
+
+            return this.Redirect(SWAGGER_INDEX_PAGE);
         }
     }
 }

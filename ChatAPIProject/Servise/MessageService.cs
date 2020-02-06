@@ -1,6 +1,6 @@
 ﻿using ChatAPIProject.Data;
 using ChatAPIProject.Models.ServiceModels.Message;
-using Servise.Contracts;
+using Service.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace ChatAPIProject.Service
             throw new NotImplementedException();
         }
 
-        public bool SendMessage(int communicationId, string content, int receiverId)
+        public bool SendMessage(int senderId, int receiverId, string context)
         {
             throw new NotImplementedException();
         }

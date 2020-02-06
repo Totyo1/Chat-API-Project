@@ -28,9 +28,9 @@ namespace ChatAPIProject.Service
             this.userCode.CreateUser(user);
         }
 
-        public bool IsUserExist(string username, string password)
+        public User GetUser(string username, string password)
         {
-            return this.userCode.IsUserExist(username, password);
+            return this.userCode.GetUserByUsernameAndPassword(username, password);
         }
     }
 }

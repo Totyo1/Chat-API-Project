@@ -1,4 +1,5 @@
 ﻿
+using ChatAPIProject.Models.DataModels;
 using ChatAPIProject.Models.InputModels.User;
 
 namespace Service.Contracts
@@ -7,6 +8,6 @@ namespace Service.Contracts
     {
          void CreateUser(UserInputModel inputModel);
 
-        bool IsUserExist(string username, string password);
+         User GetUser(string username, string password);
     }
 }

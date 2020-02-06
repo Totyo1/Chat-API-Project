@@ -33,9 +33,9 @@ namespace ChatAPIProject.Data
             }
         }
 
-        public bool IsUserExist(string username, string password)
+        public User GetUserByUsernameAndPassword(string username, string password)
         {
-            var hasRows = false;
+            User user = null;
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 SqlCommand cmd = new SqlCommand("tdb_usr_ext", conn);
@@ -43,11 +43,22 @@ namespace ChatAPIProject.Data
                 conn.Open();
                 cmd.Parameters.AddWithValue("@usr_nme", username);
                 cmd.Parameters.AddWithValue("@pwd", password);
-                hasRows = cmd.ExecuteReader().HasRows;
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if(reader.HasRows)
+                    {
+                        user = new User
+                        {
+                            Id = reader.GetInt32(1),
+                            Username = reader["username"].ToString(),
+                            Password = reader["password"].ToString()
+                        };
+                    }
+                }
                 conn.Close();
             }
 
-            return hasRows;
+            return user;
         }
     }
 }
