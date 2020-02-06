@@ -1,4 +1,4 @@
-﻿using Servise.Contracts;
+﻿using Service.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

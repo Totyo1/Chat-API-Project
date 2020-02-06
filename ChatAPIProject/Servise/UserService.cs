@@ -1,5 +1,5 @@
 ﻿using ChatAPIProject.Models.InputModels;
-using Servise.Contracts;
+using Service.Contracts;
 using System;
 using AutoMapper;
 using System.Collections.Generic;

@@ -1,9 +1,9 @@
 ﻿using Models.ServiceModels.FriendRequest;
-using Servise.Contracts;
+using Service.Contracts;
 using System;
 using System.Collections.Generic;
 
-namespace Servise
+namespace Service
 {
     public class FriendRequestSevice : IFriendRequestSevice
     {

@@ -1,7 +1,7 @@
 ﻿using ChatAPIProject.Models.ServiceModels.Friendship;
 using System.Collections.Generic;
 
-namespace Servise.Contracts
+namespace Service.Contracts
 {
     public interface IFriendshipService
     {

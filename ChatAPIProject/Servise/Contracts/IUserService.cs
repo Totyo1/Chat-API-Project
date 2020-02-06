@@ -1,7 +1,7 @@
 ﻿
 using ChatAPIProject.Models.InputModels.User;
 
-namespace Servise.Contracts
+namespace Service.Contracts
 {
     public interface IUserService
     {

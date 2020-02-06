@@ -1,5 +1,5 @@
 ﻿using Models.InputModels.Message;
-using Servise.Contracts;
+using Service.Contracts;
 using System.Linq;
 using System.Web.Http;
 
@@ -10,16 +10,10 @@ namespace ChatAPIProject.Controllers
     public class MessageController : ApiController
     {
         private IMessageService messageService;
-        private ICommunicationService communicationService;
 
-        public MessageController()
-        {
-        }
-
-        public MessageController(IMessageService messageService, ICommunicationService communicationService)
+        public MessageController(IMessageService messageService)
         {
             this.messageService = messageService;
-            this.communicationService = communicationService;
         }
 
         [HttpPost]
