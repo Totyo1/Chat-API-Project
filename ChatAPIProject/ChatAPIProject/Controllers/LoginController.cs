@@ -1,25 +1,31 @@
 ﻿using ChatAPIProject.Models;
+using Service.Contracts;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
-using System.Web;
 using System.Web.Http;
 
 namespace ChatAPIProject.Controllers
 {
+    [RoutePrefix("api/Login")]
     public class LoginController : ApiController
     {
+        private IUserService userService; 
+
+        public LoginController(IUserService userService)
+        {
+            this.userService = userService;
+        }
+
         [HttpPost]
         public IHttpActionResult Authenticate([FromBody]LoginRequest login)
         {
             var loginResponse = new LoginResponse { };
-            LoginRequest loginrequest = new LoginRequest { };
-            loginrequest.Username = login.Username.ToLower();
-            loginrequest.Password = login.Password;
+            LoginRequest loginRequest = new LoginRequest { };
+            loginRequest.Username = login.Username.ToLower();
+            loginRequest.Password = login.Password;
 
             IHttpActionResult response;
             HttpResponseMessage responseMsg = new HttpResponseMessage();
@@ -27,12 +33,12 @@ namespace ChatAPIProject.Controllers
 
             if (login != null)
             {
-                isUsernamePasswordValid = loginrequest.Password == "admin" ? true : false;
+                isUsernamePasswordValid = this.userService.IsUserExist(loginRequest.Username, loginRequest.Password);
             }
 
             if (isUsernamePasswordValid)
             {
-                string token = createToken(loginrequest.Username);
+                string token = createToken(loginRequest.Username);
 
                 return Ok<string>(token);
             }
@@ -68,5 +74,7 @@ namespace ChatAPIProject.Controllers
 
             return tokenString;
         }
+
+
     }
 }

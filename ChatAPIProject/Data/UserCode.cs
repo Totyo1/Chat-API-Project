@@ -32,5 +32,22 @@ namespace ChatAPIProject.Data
                 conn.Close();
             }
         }
+
+        public bool IsUserExist(string username, string password)
+        {
+            var hasRows = false;
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_usr_ext", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+                cmd.Parameters.AddWithValue("@usr_nme", username);
+                cmd.Parameters.AddWithValue("@pwd", password);
+                hasRows = cmd.ExecuteReader().HasRows;
+                conn.Close();
+            }
+
+            return hasRows;
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace Service.Contracts
     {
          void CreateUser(UserInputModel inputModel);
 
+        bool IsUserExist(string username, string password);
     }
 }
