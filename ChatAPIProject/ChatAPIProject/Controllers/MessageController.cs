@@ -31,9 +31,9 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest(ModelState);
             }
 
-            var isItSend = this.messageService.SendMessage(model.CommunicationId, model.Content, model.ReceiverId);
+            bool isSent = this.messageService.SendMessage(model.CommunicationId, model.Content, model.ReceiverId);
 
-            if (!isItSend)
+            if (!isSent)
             {
                 return this.BadRequest("Fail to send message.");
             }

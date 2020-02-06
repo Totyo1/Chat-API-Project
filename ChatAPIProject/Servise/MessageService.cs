@@ -1,4 +1,5 @@
-﻿using ChatAPIProject.Models.ServiceModels.Message;
+﻿using ChatAPIProject.Data;
+using ChatAPIProject.Models.ServiceModels.Message;
 using Servise.Contracts;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,11 @@ namespace ChatAPIProject.Service
 {
     public class MessageService : IMessageService
     {
+        private MessageCode messageData;
+        public MessageService()
+        {
+            this.messageData = new MessageCode();
+        }
         public List<MessageServiceModel> GetMessages(int comminucationId)
         {
             throw new NotImplementedException();
