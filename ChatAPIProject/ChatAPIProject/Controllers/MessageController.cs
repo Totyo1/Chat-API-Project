@@ -1,5 +1,7 @@
-﻿using Models.InputModels.Message;
+﻿using ChatAPIProject.Models.ServiceModels.Message;
+using Models.InputModels.Message;
 using Service.Contracts;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web.Http;
@@ -27,8 +29,8 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest(ModelState);
             }
 
-            var senderId = 1; //User.FindFirstValue(ClaimTypes.Name);
-            bool isSent = this.messageService.SendMessage(senderId, model.ReceiverId, model.Content);
+            int senderId = 1; //User.FindFirstValue(ClaimTypes.Name);
+            bool isSent = this.messageService.SendMessage(model);
 
             if (!isSent)
             {
@@ -47,7 +49,7 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest("Invalid request.");
             }
 
-            var messages = this.Service.GetMessagesByCommunicationId(id).ToList();
+            List<MessageServiceModel> messages = this.Service.GetMessages(id).ToList();
 
             return this.Ok(messages);
         }
