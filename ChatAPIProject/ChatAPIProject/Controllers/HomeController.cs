@@ -15,10 +15,12 @@ namespace ChatAPIProject.Controllers
         private const string SWAGGER_INDEX_PAGE = "http://localhost:52661/swagger/ui/index";
 
         private IUserService userService;
+        private Authenticate authenticate;
 
         public HomeController()
         {
-            
+            this.userService = new UserService();
+            this.authenticate = new Authenticate(userService);
         }
 
         [HttpGet]
@@ -32,12 +34,13 @@ namespace ChatAPIProject.Controllers
         [HttpPost]
         public ActionResult Index(HomeLoginInputModel model)
         {
-            if (!ModelState.IsValid)
+            var token = this.authenticate.AuthUser(model.Username, model.Password);
+
+            if (!ModelState.IsValid || String.IsNullOrWhiteSpace(token))
             {
                 this.ViewData["ErrorMessage"] = ERROR_MESSAGE;
                 return this.View(model);
             }
-
 
             this.Response.Cookies.Set(new HttpCookie("Token"));
 
