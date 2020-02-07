@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using ChatAPIProject.Data;
+using ChatAPIProject.Models.InputModels.Message;
 using ChatAPIProject.Models.ServiceModels.Message;
-using Models.InputModels.Message;
 using Service.Contracts;
 using System;
 using System.Collections.Generic;

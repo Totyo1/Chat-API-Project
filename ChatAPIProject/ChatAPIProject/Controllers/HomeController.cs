@@ -1,5 +1,5 @@
-﻿using ChatAPIProject.Service;
-using Models.InputModels.Home;
+﻿using ChatAPIProject.Models.InputModels.Home;
+using ChatAPIProject.Service;
 using Service.Contracts;
 using System;
 using System.Collections.Generic;

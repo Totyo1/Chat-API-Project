@@ -1,5 +1,5 @@
-﻿using ChatAPIProject.Models.ServiceModels.Message;
-using Models.InputModels.Message;
+﻿using ChatAPIProject.Models.InputModels.Message;
+using ChatAPIProject.Models.ServiceModels.Message;
 using Service.Contracts;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +49,7 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest("Invalid request.");
             }
 
-            List<MessageServiceModel> messages = this.Service.GetMessages(id).ToList();
+            List<MessageServiceModel> messages = this.Service.GetMessagesByCommunicationId(id).ToList();
 
             return this.Ok(messages);
         }
