@@ -9,6 +9,7 @@ namespace Service
 {
     public class FriendRequestSevice : IFriendRequestSevice
     {
+        
         public bool SendFriendRequest(FriendRequestInputModel model)
         {
             throw new NotImplementedException();
