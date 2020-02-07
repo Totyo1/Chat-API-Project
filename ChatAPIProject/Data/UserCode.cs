@@ -45,14 +45,17 @@ namespace ChatAPIProject.Data
                 cmd.Parameters.AddWithValue("@pwd", password);
                 using (var reader = cmd.ExecuteReader())
                 {
-                    if(reader.HasRows)
+                    if (reader.Read())
                     {
-                        user = new UserDataModel
+                        if (reader.HasRows)
                         {
-                            Id = reader.GetInt32(1),
-                            Username = reader["username"].ToString(),
-                            Password = reader["password"].ToString()
-                        };
+                            user = new User
+                            {
+                                Id = int.Parse(reader["user_id"].ToString()), //(int)reader["user_id"],  //reader.GetInt32((int)reader.GetOrdinal("user_id")), //Convert.ToInt32(reader["user_id"]), //reader.GetInt32(1), //reader.GetString((int)reader.GetOrdinal("user_id")),  //(int)(reader["user_id"]),
+                                Username = reader["username"].ToString(),
+                                Password = reader["password"].ToString()
+                            };
+                        }
                     }
                 }
                 conn.Close();
