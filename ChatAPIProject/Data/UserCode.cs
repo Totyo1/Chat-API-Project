@@ -49,7 +49,7 @@ namespace ChatAPIProject.Data
                     {
                         user = new User
                         {
-                            Id = reader.GetInt32(1),
+                            Id = Convert.ToInt32(reader["user_id"]),
                             Username = reader["username"].ToString(),
                             Password = reader["password"].ToString()
                         };

@@ -17,11 +17,15 @@ namespace ChatAPIProject.Service
         }
         public List<MessageServiceModel> GetMessages(int comminucationId)
         {
+            //get take all messages where communication id is input communicationId
             throw new NotImplementedException();
         }
 
         public bool SendMessage(int senderId, int receiverId, string context)
         {
+            //if communication exist with senderId and receiverId get communication continue this conversation, else create new communicaion add it to database
+            //create new message
+            //add message to database 
             throw new NotImplementedException();
         }
     }

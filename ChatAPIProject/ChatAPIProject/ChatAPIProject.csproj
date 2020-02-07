@@ -214,6 +214,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Authenticate.cs" />
     <Compile Include="AutofacWebapiConfig.cs" />
     <Compile Include="Common\swagger\AuthTokenInHeaderOperationFilter.cs" />
     <Compile Include="Controllers\BaseController.cs" />

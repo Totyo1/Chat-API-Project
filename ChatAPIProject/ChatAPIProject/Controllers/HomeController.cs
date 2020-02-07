@@ -18,7 +18,7 @@ namespace ChatAPIProject.Controllers
 
         public HomeController()
         {
-            this.userService = new UserService();
+            
         }
 
         [HttpGet]
@@ -32,11 +32,13 @@ namespace ChatAPIProject.Controllers
         [HttpPost]
         public ActionResult Index(HomeLoginInputModel model)
         {
-            if (!ModelState.IsValid )//|| !this.userService.IsUserExist(model.Username, model.Password))
+            if (!ModelState.IsValid)
             {
                 this.ViewData["ErrorMessage"] = ERROR_MESSAGE;
                 return this.View(model);
             }
+
+
             this.Response.Cookies.Set(new HttpCookie("Token"));
 
             return this.Redirect(SWAGGER_INDEX_PAGE);

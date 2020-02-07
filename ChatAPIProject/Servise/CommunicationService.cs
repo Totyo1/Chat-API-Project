@@ -11,6 +11,7 @@ namespace ChatAPIProject.Service
     {
         public IEnumerable<CommunicationServiceModel> All()
         {
+            //take all comunication from communication table 
             throw new NotImplementedException();
         }
     }
