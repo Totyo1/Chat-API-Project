@@ -9,8 +9,8 @@ namespace ChatAPIProject.Models.ServiceModels.Communication
     {
         public int Id { get; set; }
 
-        public int FirstUser { get; set; }
+        public int FirstUserId { get; set; }
 
-        public int SecondUser { get; set; }
+        public int SecondUserId { get; set; }
     }
 }
