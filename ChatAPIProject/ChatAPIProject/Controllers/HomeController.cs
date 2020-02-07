@@ -42,7 +42,7 @@ namespace ChatAPIProject.Controllers
                 return this.View(model);
             }
 
-            this.Response.Cookies.Set(new HttpCookie("Token"));
+            this.Response.Cookies.Set(new HttpCookie("Token", token));
 
             return this.Redirect(SWAGGER_INDEX_PAGE);
         }
