@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Models.InputModels.Message
+namespace ChatAPIProject.Models.InputModels.Message
 {
     public class MessageInputModel
     {

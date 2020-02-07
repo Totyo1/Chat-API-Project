@@ -221,7 +221,6 @@
     <Compile Include="Common\swagger\AuthTokenInHeaderOperationFilter.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommunicationController.cs" />
-    <Compile Include="Controllers\FriendshipController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MessageController.cs" />

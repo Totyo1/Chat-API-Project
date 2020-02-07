@@ -1,4 +1,5 @@
-﻿using Models.ServiceModels.FriendRequest;
+﻿using ChatAPIProject.Models.InputModels.FriendRequest;
+using ChatAPIProject.Models.ServiceModels.FriendRequest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Service.Contracts
 {
     public interface IFriendRequestSevice
     {
-        bool SendFriendRequest(int receiverId);
+        bool SendFriendRequest(FriendRequestInputModel model);
 
         IEnumerable<FriendRequestServiceModel> All();
 

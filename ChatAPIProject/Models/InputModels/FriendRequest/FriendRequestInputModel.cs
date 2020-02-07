@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChatAPIProject.Models.ServiceModels.FriendRequest
+namespace ChatAPIProject.Models.InputModels.FriendRequest
 {
-    public class FriendRequestServiceModel
+    public class FriendRequestInputModel
     {
         public int SenderId { get; set; }
 

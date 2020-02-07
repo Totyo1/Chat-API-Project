@@ -49,7 +49,7 @@ namespace ChatAPIProject.Data
                     {
                         if (reader.HasRows)
                         {
-                            user = new User
+                            user = new UserDataModel
                             {
                                 Id = int.Parse(reader["user_id"].ToString()), //(int)reader["user_id"],  //reader.GetInt32((int)reader.GetOrdinal("user_id")), //Convert.ToInt32(reader["user_id"]), //reader.GetInt32(1), //reader.GetString((int)reader.GetOrdinal("user_id")),  //(int)(reader["user_id"]),
                                 Username = reader["username"].ToString(),

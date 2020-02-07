@@ -52,11 +52,7 @@ namespace ChatAPIProject
             builder.RegisterType(typeof(CommunicationService))
                    .As(typeof(ICommunicationService))
                    .InstancePerRequest();
-
-            builder.RegisterType(typeof(FriendshipService))
-                   .As(typeof(IFriendshipService))
-                   .InstancePerRequest();
-
+            
             builder.RegisterType(typeof(FriendRequestSevice))
                    .As(typeof(IFriendRequestSevice))
                    .InstancePerRequest();

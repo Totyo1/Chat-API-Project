@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Models.InputModels.Home
+namespace ChatAPIProject.Models.InputModels.Home
 {
     public class HomeLoginInputModel
     {

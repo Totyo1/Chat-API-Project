@@ -1,4 +1,6 @@
-﻿using Models.ServiceModels.FriendRequest;
+﻿
+using ChatAPIProject.Models.InputModels.FriendRequest;
+using ChatAPIProject.Models.ServiceModels.FriendRequest;
 using Service.Contracts;
 using System;
 using System.Collections.Generic;
@@ -7,24 +9,26 @@ namespace Service
 {
     public class FriendRequestSevice : IFriendRequestSevice
     {
-        public IEnumerable<FriendRequestServiceModel> All()
+        public bool SendFriendRequest(FriendRequestInputModel model)
         {
             throw new NotImplementedException();
         }
 
-        public bool ApproveRequest(int senderId)
+        IEnumerable<FriendRequestServiceModel> IFriendRequestSevice.All()
         {
             throw new NotImplementedException();
         }
 
-        public void DeclineRequest(int senderId)
+        bool IFriendRequestSevice.ApproveRequest(int senderId)
         {
             throw new NotImplementedException();
         }
 
-        public bool SendFriendRequest(int receiverId)
+        void IFriendRequestSevice.DeclineRequest(int senderId)
         {
             throw new NotImplementedException();
         }
+
+       
     }
 }

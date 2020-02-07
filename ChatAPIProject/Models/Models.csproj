@@ -46,29 +46,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataModels\Communication.cs" />
-    <Compile Include="DataModels\Friendship.cs" />
+    <Compile Include="DataModels\FriendRequest.cs" />
     <Compile Include="DataModels\Message.cs" />
     <Compile Include="DataModels\User.cs" />
     <Compile Include="InputModels\Communicaton\CommunicationInputModel.cs" />
-    <Compile Include="InputModels\Friendship\FriendshipInputModel.cs" />
+    <Compile Include="InputModels\FriendRequest\FriendRequestInputModel.cs" />
     <Compile Include="InputModels\Home\HomeLoginInputModel.cs" />
     <Compile Include="InputModels\Message\MessageInputModel.cs" />
     <Compile Include="InputModels\User\UserInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterMappingModel.cs" />
     <Compile Include="ResponseModels\CommunicationResponseModel.cs" />
-    <Compile Include="ResponseModels\FriendshipResponseModel.cs" />
     <Compile Include="ResponseModels\MessageResponseModel.cs" />
     <Compile Include="ResponseModels\UserResponseModel.cs" />
     <Compile Include="ServiceModels\Communication\CommunicationServiceModel.cs" />
     <Compile Include="ServiceModels\FriendRequest\FriendRequestServiceModel.cs" />
-    <Compile Include="ServiceModels\Friendship\FriendshipServiceModel.cs" />
     <Compile Include="ServiceModels\Message\MessageServiceModel.cs" />
     <Compile Include="ServiceModels\User\UserServiceModel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="InputModels\FriendRequest\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{588ed0ee-6699-4c21-b1a0-08883112e639}</Project>
