@@ -20,8 +20,8 @@ namespace ChatAPIProject.Service
         {
             this.userCode = new UserCode();
             this.config = new MapperConfiguration(cfg => cfg.CreateMap<UserInputModel, User>());
-
         }  
+
         public void CreateUser(UserInputModel inputModel)
         {
             IMapper mapper = config.CreateMapper();
