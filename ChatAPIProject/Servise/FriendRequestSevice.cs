@@ -1,7 +1,7 @@
-﻿
+﻿using ChatAPIProject.Data;
 using ChatAPIProject.Models.InputModels.FriendRequest;
 using ChatAPIProject.Models.ServiceModels.FriendRequest;
-using ChatAPIProject.Data;
+
 using Service.Contracts;
 using System;
 using System.Collections.Generic;

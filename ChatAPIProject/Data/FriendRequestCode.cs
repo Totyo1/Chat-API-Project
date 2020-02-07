@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ChatAPIProject.Models.InputModels.FriendRequest;
+
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ChatAPIProject.Models.InputModels.FriendRequest;
 
 namespace ChatAPIProject.Data
 {
