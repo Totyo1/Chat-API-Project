@@ -11,8 +11,12 @@ namespace ChatAPIProject.Controllers
     [RoutePrefix("api/Message")]
     public class MessageController : BaseController<IMessageService>
     {
+        IMessageService messageService;
+
         public MessageController(IMessageService messageService) : base(messageService)
-        {}
+        {
+            this.messageService = messageService;
+        }
 
         [HttpPost]
         [Route("SendMessage")]
