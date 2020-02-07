@@ -19,17 +19,17 @@ namespace ChatAPIProject.Service
         public UserService()
         {
             this.userCode = new UserCode();
-            this.config = new MapperConfiguration(cfg => cfg.CreateMap<UserInputModel, User>());
+            this.config = new MapperConfiguration(cfg => cfg.CreateMap<UserInputModel, UserDataModel>());
         }  
 
         public void CreateUser(UserInputModel inputModel)
         {
             IMapper mapper = config.CreateMapper();
-            User user = mapper.Map<User>(inputModel);
+            UserDataModel user = mapper.Map<UserDataModel>(inputModel);
             this.userCode.CreateUser(user);
         }
 
-        public User GetUser(string username, string password)
+        public UserDataModel GetUser(string username, string password)
         {
             return this.userCode.GetUserByUsernameAndPassword(username, password);
         }

@@ -1,4 +1,5 @@
 ﻿using ChatAPIProject.Models.ServiceModels.Message;
+using Models.InputModels.Message;
 using System.Collections.Generic;
 
 namespace Service.Contracts
@@ -7,6 +8,6 @@ namespace Service.Contracts
     {
         List<MessageServiceModel> GetMessages(int comminucationId);
 
-        bool SendMessage(int senderId, int receiverId, string context);
+        bool SendMessage(MessageInputModel inputModel);
     }
 }

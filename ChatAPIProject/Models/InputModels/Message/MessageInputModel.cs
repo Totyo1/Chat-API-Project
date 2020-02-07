@@ -9,7 +9,9 @@ namespace Models.InputModels.Message
     {
         public string Content { get; set; }
 
-        public int ReceiverId { get; set; }
-        
+        public int SenderID { get; set; }
+
+        public int ReceiverID { get; set; }
+
     }
 }

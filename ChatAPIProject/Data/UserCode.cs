@@ -16,7 +16,7 @@ namespace ChatAPIProject.Data
         {
             this.connString = ConfigurationManager.AppSettings["myDbConnection"];
         }
-        public void CreateUser(User user)
+        public void CreateUser(UserDataModel user)
         {
             using (SqlConnection conn = new SqlConnection(connString))
             {
@@ -33,9 +33,9 @@ namespace ChatAPIProject.Data
             }
         }
 
-        public User GetUserByUsernameAndPassword(string username, string password)
+        public UserDataModel GetUserByUsernameAndPassword(string username, string password)
         {
-            User user = null;
+            UserDataModel user = null;
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 SqlCommand cmd = new SqlCommand("tdb_usr_ext", conn);
@@ -47,7 +47,7 @@ namespace ChatAPIProject.Data
                 {
                     if(reader.HasRows)
                     {
-                        user = new User
+                        user = new UserDataModel
                         {
                             Id = reader.GetInt32(1),
                             Username = reader["username"].ToString(),

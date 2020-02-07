@@ -8,6 +8,6 @@ namespace Service.Contracts
     {
          void CreateUser(UserInputModel inputModel);
 
-         User GetUser(string username, string password);
+         UserDataModel GetUser(string username, string password);
     }
 }

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ChatAPIProject.Models.DataModels
 {
-    public class User 
+    public class UserDataModel 
     {
         public int Id { get; set; }
 
