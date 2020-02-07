@@ -47,7 +47,7 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest("Invalid request.");
             }
 
-            var messages = this.Service.GetMessages(id).ToList();
+            var messages = this.Service.GetMessagesByCommunicationId(id).ToList();
 
             return this.Ok(messages);
         }

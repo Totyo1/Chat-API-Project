@@ -1,4 +1,5 @@
-﻿using ChatAPIProject.Models.ServiceModels;
+﻿using ChatAPIProject.Models.DataModels;
+using ChatAPIProject.Models.ServiceModels;
 using ChatAPIProject.Models.ServiceModels.Communication;
 using ChatAPIProject.Models.ServiceModels.Message;
 using System;
@@ -11,8 +12,10 @@ namespace Service.Contracts
 {
     public interface ICommunicationService
     {
-        IEnumerable<CommunicationServiceModel> All();
+        List<CommunicationServiceModel> All();
 
-        
+        void Create(int firstUserId, int secondUserId);
+
+        Communication GetCommunicationByUsers(int firstUserId, int secondUserId);
     }
 }

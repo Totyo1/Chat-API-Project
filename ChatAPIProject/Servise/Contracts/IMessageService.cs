@@ -5,7 +5,7 @@ namespace Service.Contracts
 {
     public interface IMessageService
     {
-        List<MessageServiceModel> GetMessages(int comminucationId);
+        List<MessageServiceModel> GetMessagesByCommunicationId(int comminucationId);
 
         bool SendMessage(int senderId, int receiverId, string context);
     }
