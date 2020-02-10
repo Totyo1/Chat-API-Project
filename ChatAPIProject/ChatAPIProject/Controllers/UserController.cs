@@ -37,6 +37,11 @@ namespace ChatAPIProject.Controllers
         [Route("Create")]
         public IHttpActionResult CreateUser(UserInputModel inputModel)
         {
+            if (String.IsNullOrWhiteSpace(inputModel.Username) || String.IsNullOrWhiteSpace(inputModel.Password) || inputModel.Password.Length < 5)
+            {
+                return this.BadRequest("Invalid input. Username is required.Password is required and must be minimum 5 symbols.");
+            }
+
             try
             {
                 this.Service.CreateUser(inputModel);
