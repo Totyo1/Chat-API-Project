@@ -12,9 +12,9 @@ namespace Service.Contracts
 
         IEnumerable<FriendRequestServiceModel> All();
 
-        bool ApproveRequest(int senderId);
+        void AcceptRequest(int userId, int receiverId);
 
-        void DeclineRequest(int senderId);
+        void RejectRequest(int userId, int receiverId);
 
         List<FriendServiceModel> GetFriends(int userId, string status);
 

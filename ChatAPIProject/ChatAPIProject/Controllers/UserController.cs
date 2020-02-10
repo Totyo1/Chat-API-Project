@@ -7,8 +7,10 @@ using System.Web.Http;
 using System.Security.Claims;
 using System.Web;
 using System.Linq;
-using System.Collections.Generic;
+using Models.InputModels.User;
+using Models.InputModels.FriendRequest;
 using Models.ServiceModels.FriendRequest;
+using System.Collections.Generic;
 
 namespace ChatAPIProject.Controllers
 {
@@ -22,17 +24,19 @@ namespace ChatAPIProject.Controllers
 
         private IFriendRequestSevice friendRequestSevice;
         private ICommunicationService communicationService;
+        private List<int> listOfFriendRequests;
         private IMessageService messageService;
 
         public UserController(IUserService userService, IFriendRequestSevice friendRequestSevice, ICommunicationService communicationService, IMessageService messageService) : base(userService)
         {
             this.friendRequestSevice = friendRequestSevice;
             this.communicationService = communicationService;
+            this.listOfFriendRequests = new List<int>();
             this.messageService = messageService;
         }
 
         [HttpPost]
-        [Route("create")]
+        [Route("Create")]
         public IHttpActionResult CreateUser(UserInputModel inputModel)
         {
             try
@@ -45,8 +49,9 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest(ex.Message);
             }
         }
+
         [HttpPost]
-        [Route("friendRequest")]
+        [Route("SendFriendRequest")]
         public IHttpActionResult SendFriendRequest(int recieverId)
         {
             FriendRequestInputModel model = new FriendRequestInputModel
@@ -67,7 +72,7 @@ namespace ChatAPIProject.Controllers
         }
 
         [HttpGet]
-        [Route("AllCommunications")]
+        [Route("Communications")]
         public IHttpActionResult AllCommunications()
         {
             var userId = GetUserId();
@@ -81,7 +86,7 @@ namespace ChatAPIProject.Controllers
         }
 
         [HttpGet]
-        [Route("GetFriends")]
+        [Route("Friends")]
         public IHttpActionResult GetFriends()
         {
             int userId = GetUserId();
@@ -107,6 +112,11 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest("No available friend requests.");
             }
 
+            foreach (var item in allRequests)
+            {
+                listOfFriendRequests.Add(item.FriendId);
+            }
+
             return this.Ok(allRequests);
         }
 
@@ -125,6 +135,53 @@ namespace ChatAPIProject.Controllers
             catch (Exception ex)
             {
                 return this.BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("AcceptRequest")]
+        public IHttpActionResult AcceptRequest(AcceptFriendRequestInputModel model)
+        {
+            var isRequestExist = listOfFriendRequests.Contains(model.FriendId);
+            if (!isRequestExist)
+            {
+                return this.BadRequest($"You don't have request from user with id {model.FriendId}.");
+            }
+
+            var userId = GetUserId();
+            try
+            {
+                this.friendRequestSevice.AcceptRequest(userId, model.FriendId);
+                this.communicationService.Create(userId, model.FriendId);
+
+                return Ok($"User with id {model.FriendId} friend request is accepted successfully.");
+            }
+            catch (Exception)
+            {
+                return this.BadRequest("Invalid operation.Try again.");
+            }
+        }
+
+        [HttpPost]
+        [Route("RejectRequest")]
+        public IHttpActionResult RejectRequest(RejectFriendRequestInputModel model)
+        {
+            var isRequestExist = listOfFriendRequests.Contains(model.FriendId);
+            if (!isRequestExist)
+            {
+                return this.BadRequest($"You don't have request from user with id {model.FriendId}.");
+            }
+
+            var userId = GetUserId();
+            try
+            {
+                this.friendRequestSevice.RejectRequest(userId, model.FriendId);
+
+                return this.Ok($"You rejected user with id {model.FriendId}.");
+            }
+            catch (Exception)
+            {
+                return this.BadRequest("Invalid operation.Try again.");
             }
         }
 

@@ -113,5 +113,35 @@ namespace ChatAPIProject.Data
 
             return list;
         }
+
+        public void AcceptRequest(int userId, int receiverId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_frr_acc", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@usr_id", userId);
+                cmd.Parameters.AddWithValue("@usr_rec_id", receiverId);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
+        public void RejectRequest(int userId, int receiverId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_frr_rej", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@usr_id", userId);
+                cmd.Parameters.AddWithValue("@usr_rec_id", receiverId);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
     }
 }
