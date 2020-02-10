@@ -18,7 +18,7 @@ namespace ChatAPIProject.Data
             this.connString = ConfigurationManager.AppSettings["myDbConnection"];
         }
 
-        public List<Communication> All()
+        public List<Communication> All(int userId)
         {
             List<Communication> list = new List<Communication>();
             using (SqlConnection conn = new SqlConnection(connString))
@@ -27,6 +27,7 @@ namespace ChatAPIProject.Data
 
                 cmd.CommandType = CommandType.StoredProcedure;
                 conn.Open();
+                cmd.Parameters.AddWithValue("@usr_id_1", userId);
 
                 using (var reader = cmd.ExecuteReader())
                 {

@@ -10,15 +10,17 @@ using System.Linq;
 
 namespace ChatAPIProject.Controllers
 {
-    
+    [Authorize]
     [RoutePrefix("api/User")]
     public class UserController : BaseController<IUserService>
     {
         private IFriendRequestSevice friendRequestSevice;
+        private ICommunicationService communicationService;
 
-        public UserController(IUserService userService) : base(userService)
+        public UserController(IUserService userService, ICommunicationService communicationService) : base(userService)
         {
             this.friendRequestSevice = new FriendRequestSevice();
+            this.communicationService = communicationService;
         }
 
         [HttpPost]
@@ -61,10 +63,13 @@ namespace ChatAPIProject.Controllers
         public IHttpActionResult AllCommunications()
         {
             var userId = GetUserId();
-         
-            
+            var allCommunications = this.communicationService.All(userId);
+            if(allCommunications.Count == 0)
+            {
+                return this.BadRequest("No available communications.");
+            }
 
-            return this.BadRequest();
+            return this.Ok(allCommunications);
         }
 
         private int GetUserId()

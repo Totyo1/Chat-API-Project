@@ -18,9 +18,9 @@ namespace ChatAPIProject.Service
             this.communicationCode = new CommunicationCode();
         }
 
-        public List<CommunicationServiceModel> All()
+        public List<CommunicationServiceModel> All(int userId)
         {
-            var allCommunications = this.communicationCode.All()
+            var allCommunications = this.communicationCode.All(userId)
                 .Select(x => new CommunicationServiceModel
                 {
                     Id = x.Id,

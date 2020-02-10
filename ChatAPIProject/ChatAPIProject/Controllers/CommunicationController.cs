@@ -3,6 +3,7 @@ using Service.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 
@@ -20,7 +21,8 @@ namespace ChatAPIProject.Controllers
         [Route("All")]
         public IHttpActionResult GetAllCommunications()
         {
-            var communicatons = this.Service.All().ToList();
+            var userId = this.GetUserId();
+            var communicatons = this.Service.All(userId).ToList();
 
             if(communicatons.Count() == 0)
             {
@@ -62,5 +64,14 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest("Invalid input.");      
             }
         }
+        private int GetUserId()
+        {
+            var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
+            var userId = claims?.FirstOrDefault(x => x.Type.Equals("http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata", StringComparison.OrdinalIgnoreCase))?.Value;
+            var result = int.Parse(userId);
+
+            return result;
+        }
+
     }
 }

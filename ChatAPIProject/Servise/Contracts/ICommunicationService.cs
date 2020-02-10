@@ -12,7 +12,7 @@ namespace Service.Contracts
 {
     public interface ICommunicationService
     {
-        List<CommunicationServiceModel> All();
+        List<CommunicationServiceModel> All(int userId);
 
         void Create(int firstUserId, int secondUserId);
 
