@@ -9,5 +9,7 @@ namespace Service.Contracts
          void CreateUser(UserInputModel inputModel);
 
          UserDataModel GetUser(string username, string password);
+
+        void DeleteUser(int id);
     }
 }

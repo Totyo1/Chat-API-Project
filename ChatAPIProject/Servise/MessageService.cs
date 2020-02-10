@@ -20,6 +20,7 @@ namespace ChatAPIProject.Service
             this.messageData = new MessageCode();
             this.config = new MapperConfiguration(cfg => cfg.CreateMap<MessageInputModel, MessageServiceModel>());
         }
+
         public List<MessageServiceModel> GetMessagesByCommunicationId(int comminucationId)
         {
             //get take all messages where communication id is input communicationId
@@ -36,6 +37,10 @@ namespace ChatAPIProject.Service
             //create new message
             //add message to database 
             throw new NotImplementedException();
+        }
+        public void DeleteUsersMessages(int id)
+        {
+            this.messageData.DeleteUsersMessages(id);
         }
     }
 }

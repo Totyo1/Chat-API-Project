@@ -3,6 +3,7 @@
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using System;
 
 namespace ChatAPIProject.Data
 {
@@ -59,6 +60,20 @@ namespace ChatAPIProject.Data
             }
 
             return user;
+        }
+
+        public void DeleteUser(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_usr_dlt", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
         }
     }
 }

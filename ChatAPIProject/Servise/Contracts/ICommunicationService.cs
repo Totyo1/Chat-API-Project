@@ -17,5 +17,6 @@ namespace Service.Contracts
         void Create(int firstUserId, int secondUserId);
 
         Communication GetCommunicationByUsers(int firstUserId, int secondUserId);
+        void DeleteUsersCommunications(int id);
     }
 }

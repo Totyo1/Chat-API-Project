@@ -53,6 +53,20 @@ namespace ChatAPIProject.Data
             return list;
         }
 
+        public void DeleteserCommunications(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_conn_dlt", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
         public void CreateCommunication(int firstUserId, int secondUserId)
         {
             using (SqlConnection conn = new SqlConnection(connString))

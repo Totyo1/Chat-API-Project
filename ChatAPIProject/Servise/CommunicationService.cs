@@ -36,10 +36,15 @@ namespace ChatAPIProject.Service
         {
             this.communicationCode.CreateCommunication(firstUserId, secondUserId);
         }
+        
+        public void DeleteUsersCommunications(int id)
+        {
+            this.communicationCode.DeleteserCommunications(id);
+        }
 
         public Communication GetCommunicationByUsers(int firstUserId, int secondUserId)
         {
-            var communication = this.communicationCode.GetCommunicationByUsers(firstUserId, secondUserId);
+            Communication communication = this.communicationCode.GetCommunicationByUsers(firstUserId, secondUserId);
 
             return communication;
         }
