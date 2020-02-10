@@ -40,7 +40,7 @@ namespace ChatAPIProject.Data
                 conn.Open();
                 cmd.Parameters.AddWithValue("@usr_nme", username);
                 cmd.Parameters.AddWithValue("@pwd", password);
-                using (var reader = cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
                     {

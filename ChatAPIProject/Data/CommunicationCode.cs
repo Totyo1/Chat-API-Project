@@ -28,7 +28,7 @@ namespace ChatAPIProject.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 conn.Open();
 
-                using (var reader = cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while(reader.Read())
                     {
@@ -81,7 +81,7 @@ namespace ChatAPIProject.Data
                 cmd.Parameters.AddWithValue("@usr_id_1", firstUserId);
                 cmd.Parameters.AddWithValue("@usr_id_2", secondUserId);
 
-                using (var reader = cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
                     {
