@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace ChatAPIProject.Controllers
 {
-    [Authorize]
+    
     [RoutePrefix("api/User")]
     public class UserController : BaseController<IUserService>
     {
@@ -35,7 +35,8 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest(ex.Message);
             }
         }
-
+        [HttpPost]
+        [Route("friendRequest")]
         public IHttpActionResult SendFriendRequest(int recieverId)
         {
             FriendRequestInputModel model = new FriendRequestInputModel
