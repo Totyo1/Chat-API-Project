@@ -1,5 +1,6 @@
 ﻿using ChatAPIProject.Models.InputModels.FriendRequest;
 using Models.ServiceModels.FriendRequest;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -66,9 +67,23 @@ namespace ChatAPIProject.Data
             return list;
         }
 
+        public void DeleteUserRequests(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_frr_dlt", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
         public List<RequestServiceModel> GetFriendRequests(int userId, string status)
         {
-            var list = new List<RequestServiceModel>();
+            List<RequestServiceModel> list = new List<RequestServiceModel>();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("tdb_frr_all", conn);

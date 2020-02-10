@@ -7,6 +7,8 @@ using System.Web.Http;
 using System.Security.Claims;
 using System.Web;
 using System.Linq;
+using System.Collections.Generic;
+using Models.ServiceModels.FriendRequest;
 
 namespace ChatAPIProject.Controllers
 {
@@ -20,11 +22,13 @@ namespace ChatAPIProject.Controllers
 
         private IFriendRequestSevice friendRequestSevice;
         private ICommunicationService communicationService;
+        private IMessageService messageService;
 
-        public UserController(IUserService userService, ICommunicationService communicationService) : base(userService)
+        public UserController(IUserService userService, IFriendRequestSevice friendRequestSevice, ICommunicationService communicationService, IMessageService messageService) : base(userService)
         {
-            this.friendRequestSevice = new FriendRequestSevice();
+            this.friendRequestSevice = friendRequestSevice;
             this.communicationService = communicationService;
+            this.messageService = messageService;
         }
 
         [HttpPost]
@@ -80,9 +84,9 @@ namespace ChatAPIProject.Controllers
         [Route("GetFriends")]
         public IHttpActionResult GetFriends()
         {
-            var userId = GetUserId();
-            var status = STATUS_ACCEPTED;
-            var allFriends = this.friendRequestSevice.GetFriends(userId, status);
+            int userId = GetUserId();
+            string status = STATUS_ACCEPTED;
+            var allFriends = friendRequestSevice.GetFriends(userId, status);
             if (allFriends.Count == 0)
             {
                 return this.BadRequest("No friends available.");
@@ -95,9 +99,9 @@ namespace ChatAPIProject.Controllers
         [Route("FriendRequests")]
         public IHttpActionResult GetFriendRequest()
         {
-            var userId = GetUserId();
-            var status = STATUS_PENDING;
-            var allRequests = this.friendRequestSevice.GetRequests(userId, status);
+            int userId = GetUserId();
+            string status = STATUS_PENDING;
+            List<RequestServiceModel> allRequests = this.friendRequestSevice.GetRequests(userId, status);
             if(allRequests.Count == 0)
             {
                 return this.BadRequest("No available friend requests.");
@@ -106,11 +110,29 @@ namespace ChatAPIProject.Controllers
             return this.Ok(allRequests);
         }
 
+        [HttpDelete]
+        [Route("delete")]
+        public IHttpActionResult DeleteUser()
+        {
+            try
+            {
+                this.Service.DeleteUser(GetUserId());
+                this.communicationService.DeleteUsersCommunications(GetUserId());
+                this.friendRequestSevice.DeleteUserRequests(GetUserId());
+                this.messageService.DeleteUsersMessages(GetUserId());
+                return this.Ok("Successfully deleted");
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
+
         private int GetUserId()
         {
-            var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
-            var userId = claims?.FirstOrDefault(x => x.Type.Equals("http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata", StringComparison.OrdinalIgnoreCase))?.Value;
-            var result = int.Parse(userId);
+            List<Claim> claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
+            string userId = claims?.FirstOrDefault(x => x.Type.Equals("http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata", StringComparison.OrdinalIgnoreCase))?.Value;
+            int result = int.Parse(userId);
 
             return result; 
         }

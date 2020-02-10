@@ -9,5 +9,6 @@ namespace Service.Contracts
         List<MessageServiceModel> GetMessagesByCommunicationId(int comminucationId);
 
         bool SendMessage(MessageInputModel inputModel);
+        void DeleteUsersMessages(int id);
     }
 }

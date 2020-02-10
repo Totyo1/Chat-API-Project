@@ -47,16 +47,21 @@ namespace Service
 
         public List<FriendServiceModel> GetFriends(int userId, string status)
         {
-            var friends = this.friendRequestData.GetFriends(userId, status);
+            List<FriendServiceModel> friends = this.friendRequestData.GetFriends(userId, status);
 
             return friends;
         }
 
         public List<RequestServiceModel> GetRequests(int userId, string status)
         {
-            var requests = this.friendRequestData.GetFriendRequests(userId, status);
+            List<RequestServiceModel> requests = this.friendRequestData.GetFriendRequests(userId, status);
 
             return requests;
+        }
+
+        public void DeleteUserRequests(int id)
+        {
+            this.friendRequestData.DeleteUserRequests(id);
         }
     }
 }

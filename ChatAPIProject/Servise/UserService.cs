@@ -29,6 +29,11 @@ namespace ChatAPIProject.Service
             this.userCode.CreateUser(user);
         }
 
+        public void DeleteUser(int id)
+        {
+            this.userCode.DeleteUser(id);
+        }
+
         public UserDataModel GetUser(string username, string password)
         {
             return this.userCode.GetUserByUsernameAndPassword(username, password);
