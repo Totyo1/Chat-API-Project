@@ -52,5 +52,11 @@ namespace Service
             return friends;
         }
 
+        public List<RequestServiceModel> GetRequests(int userId, string status)
+        {
+            var requests = this.friendRequestData.GetFriendRequests(userId, status);
+
+            return requests;
+        }
     }
 }

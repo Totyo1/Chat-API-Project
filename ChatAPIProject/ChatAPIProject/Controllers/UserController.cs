@@ -47,7 +47,7 @@ namespace ChatAPIProject.Controllers
         {
             FriendRequestInputModel model = new FriendRequestInputModel
             {
-                SenderId = 6,//user id taken from the token. this value is set just to build the project without mistakes
+                SenderId = this.GetUserId(),
                 ReceiverId = recieverId,
                 Status = "Pending"
             };
@@ -89,6 +89,21 @@ namespace ChatAPIProject.Controllers
             }
 
             return this.Ok(allFriends);
+        }
+
+        [HttpGet]
+        [Route("FriendRequests")]
+        public IHttpActionResult GetFriendRequest()
+        {
+            var userId = GetUserId();
+            var status = STATUS_PENDING;
+            var allRequests = this.friendRequestSevice.GetRequests(userId, status);
+            if(allRequests.Count == 0)
+            {
+                return this.BadRequest("No available friend requests.");
+            }
+
+            return this.Ok(allRequests);
         }
 
         private int GetUserId()

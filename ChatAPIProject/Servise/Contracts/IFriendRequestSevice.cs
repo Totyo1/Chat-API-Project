@@ -16,5 +16,7 @@ namespace Service.Contracts
         void DeclineRequest(int senderId);
 
         List<FriendServiceModel> GetFriends(int userId, string status);
+
+        List<RequestServiceModel> GetRequests(int userId, string status);
     }
 }

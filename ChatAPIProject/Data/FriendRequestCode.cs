@@ -44,8 +44,6 @@ namespace ChatAPIProject.Data
 
                 cmd.Parameters.AddWithValue("@usr_id", userId);
                 cmd.Parameters.AddWithValue("@req_status", status);
-                cmd.ExecuteNonQuery();
-
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -53,6 +51,39 @@ namespace ChatAPIProject.Data
                         if (reader.HasRows)
                         {
                             FriendServiceModel friend = new FriendServiceModel
+                            {
+                                FriendId = int.Parse(reader["user_id"].ToString())
+                            };
+
+                            list.Add(friend);
+                        }
+                    }
+                }
+
+                conn.Close();
+            }
+
+            return list;
+        }
+
+        public List<RequestServiceModel> GetFriendRequests(int userId, string status)
+        {
+            var list = new List<RequestServiceModel>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_frr_all", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@usr_id", userId);
+                cmd.Parameters.AddWithValue("@req_status", status);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.HasRows)
+                        {
+                            RequestServiceModel friend = new RequestServiceModel
                             {
                                 FriendId = int.Parse(reader["user_id"].ToString())
                             };
