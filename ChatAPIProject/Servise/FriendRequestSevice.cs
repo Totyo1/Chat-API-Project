@@ -1,7 +1,7 @@
 ﻿using ChatAPIProject.Data;
 using ChatAPIProject.Models.InputModels.FriendRequest;
 using ChatAPIProject.Models.ServiceModels.FriendRequest;
-
+using Models.ServiceModels.FriendRequest;
 using Service.Contracts;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Service
         {
             this.friendRequestData = new FriendRequestCode();
         }
-        
+
         public bool SendFriendRequest(FriendRequestInputModel model)
         {
             try
@@ -45,6 +45,12 @@ namespace Service
             throw new NotImplementedException();
         }
 
-       
+        public List<FriendServiceModel> GetFriends(int userId, string status)
+        {
+            var friends = this.friendRequestData.GetFriends(userId, status);
+
+            return friends;
+        }
+
     }
 }

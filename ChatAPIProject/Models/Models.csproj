@@ -61,6 +61,7 @@
     <Compile Include="ResponseModels\UserResponseModel.cs" />
     <Compile Include="ServiceModels\Communication\CommunicationServiceModel.cs" />
     <Compile Include="ServiceModels\FriendRequest\FriendRequestServiceModel.cs" />
+    <Compile Include="ServiceModels\FriendRequest\FriendServiceModel.cs" />
     <Compile Include="ServiceModels\Message\MessageServiceModel.cs" />
     <Compile Include="ServiceModels\User\UserServiceModel.cs" />
   </ItemGroup>

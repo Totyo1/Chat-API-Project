@@ -14,6 +14,10 @@ namespace ChatAPIProject.Controllers
     [RoutePrefix("api/User")]
     public class UserController : BaseController<IUserService>
     {
+        private const string STATUS_ACCEPTED = "Accepted";
+        private const string STATUS_REJECTED = "Rejected";
+        private const string STATUS_PENDING = "Pending";
+
         private IFriendRequestSevice friendRequestSevice;
         private ICommunicationService communicationService;
 
@@ -43,7 +47,7 @@ namespace ChatAPIProject.Controllers
         {
             FriendRequestInputModel model = new FriendRequestInputModel
             {
-                SenderId = 1,//user id taken from the token. this value is set just to build the project without mistakes
+                SenderId = 6,//user id taken from the token. this value is set just to build the project without mistakes
                 ReceiverId = recieverId,
                 Status = "Pending"
             };
@@ -70,6 +74,21 @@ namespace ChatAPIProject.Controllers
             }
 
             return this.Ok(allCommunications);
+        }
+
+        [HttpGet]
+        [Route("GetFriends")]
+        public IHttpActionResult GetFriends()
+        {
+            var userId = GetUserId();
+            var status = STATUS_ACCEPTED;
+            var allFriends = this.friendRequestSevice.GetFriends(userId, status);
+            if (allFriends.Count == 0)
+            {
+                return this.BadRequest("No friends available.");
+            }
+
+            return this.Ok(allFriends);
         }
 
         private int GetUserId()

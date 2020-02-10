@@ -1,6 +1,6 @@
 ﻿using ChatAPIProject.Models.InputModels.FriendRequest;
 using ChatAPIProject.Models.ServiceModels.FriendRequest;
-
+using Models.ServiceModels.FriendRequest;
 using System.Collections.Generic;
 
 namespace Service.Contracts
@@ -14,5 +14,7 @@ namespace Service.Contracts
         bool ApproveRequest(int senderId);
 
         void DeclineRequest(int senderId);
+
+        List<FriendServiceModel> GetFriends(int userId, string status);
     }
 }

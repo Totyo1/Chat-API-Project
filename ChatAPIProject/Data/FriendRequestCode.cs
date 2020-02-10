@@ -1,5 +1,6 @@
 ﻿using ChatAPIProject.Models.InputModels.FriendRequest;
-
+using Models.ServiceModels.FriendRequest;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -8,15 +9,15 @@ namespace ChatAPIProject.Data
 {
     public class FriendRequestCode
     {
-        private readonly string connString;
+        private readonly string connectionString;
         public FriendRequestCode()
         {
-            this.connString = ConfigurationManager.AppSettings["myDbConnection"];
+            this.connectionString = ConfigurationManager.AppSettings["myDbConnection"];
         }
 
         public void SendFriendRequest(FriendRequestInputModel model)
         {
-            using (SqlConnection conn = new SqlConnection(connString))
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("tdb_frr_ins", conn);
 
@@ -30,6 +31,41 @@ namespace ChatAPIProject.Data
                 cmd.ExecuteNonQuery();
                 conn.Close();
             };
+        }
+
+        public List<FriendServiceModel> GetFriends(int userId, string status)
+        {
+            var list = new List<FriendServiceModel>();
+            using(SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_frr_fr", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@usr_id", userId);
+                cmd.Parameters.AddWithValue("@req_status", status);
+                cmd.ExecuteNonQuery();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.HasRows)
+                        {
+                            FriendServiceModel friend = new FriendServiceModel
+                            {
+                                FriendId = int.Parse(reader["user_id"].ToString())
+                            };
+
+                            list.Add(friend);
+                        }
+                    }
+                }
+
+                conn.Close();
+            }
+
+            return list;
         }
     }
 }
