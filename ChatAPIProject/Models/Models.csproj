@@ -51,6 +51,7 @@
     <Compile Include="DataModels\User.cs" />
     <Compile Include="InputModels\Communicaton\CommunicationInputModel.cs" />
     <Compile Include="InputModels\FriendRequest\FriendRequestInputModel.cs" />
+    <Compile Include="InputModels\FriendRequest\RejectFriendRequestInputModel.cs" />
     <Compile Include="InputModels\Home\HomeLoginInputModel.cs" />
     <Compile Include="InputModels\Message\MessageInputModel.cs" />
     <Compile Include="InputModels\User\AcceptFriendRequestInputModel.cs" />

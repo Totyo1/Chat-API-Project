@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Web;
 using System.Linq;
 using Models.InputModels.User;
+using Models.InputModels.FriendRequest;
 
 namespace ChatAPIProject.Controllers
 {
@@ -117,7 +118,24 @@ namespace ChatAPIProject.Controllers
                 this.friendRequestSevice.AcceptRequest(userId, model.FriendId);
                 this.communicationService.Create(userId, model.FriendId);
 
-                return Ok("User friend request is accepted successfully.");
+                return Ok($"User with id {model.FriendId} friend request is accepted successfully.");
+            }
+            catch (Exception)
+            {
+                return this.BadRequest("Invalid operation.Try again.");
+            }
+        }
+
+        [HttpPost]
+        [Route("RejectRequest")]
+        public IHttpActionResult RejectRequest(RejectFriendRequestInputModel model)
+        {
+            var userId = GetUserId();
+            try
+            {
+                this.friendRequestSevice.RejectRequest(userId, model.FriendId);
+
+                return this.Ok($"You rejected user with id {model.FriendId}.");
             }
             catch (Exception)
             {

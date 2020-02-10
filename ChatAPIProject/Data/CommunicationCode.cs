@@ -37,9 +37,9 @@ namespace ChatAPIProject.Data
                         {
                             Communication communication = new Communication
                             {
-                                Id = int.Parse(reader["communication_id"].ToString()),
-                                FirstUserId = int.Parse(reader["user_first_id"].ToString()),
-                                SecondUserId = int.Parse(reader["user_second_id"].ToString())
+                                Id = int.Parse(reader["com_id"].ToString()),
+                                FirstUserId = int.Parse(reader["first_user_id"].ToString()),
+                                SecondUserId = int.Parse(reader["second_user_id"].ToString())
                             };
 
                             list.Add(communication);

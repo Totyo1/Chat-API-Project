@@ -123,7 +123,7 @@ namespace ChatAPIProject.Data
                 conn.Open();
 
                 cmd.Parameters.AddWithValue("@usr_id", userId);
-                cmd.Parameters.AddWithValue("@usr_receiverId", receiverId);
+                cmd.Parameters.AddWithValue("@usr_rec_id", receiverId);
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
