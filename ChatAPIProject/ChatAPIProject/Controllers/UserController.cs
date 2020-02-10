@@ -4,14 +4,18 @@ using Service;
 using Service.Contracts;
 using System;
 using System.Web.Http;
+using System.Security.Claims;
+using System.Web;
+using System.Linq;
 
 namespace ChatAPIProject.Controllers
 {
-    
+    [Authorize]
     [RoutePrefix("api/User")]
     public class UserController : BaseController<IUserService>
     {
         private IFriendRequestSevice friendRequestSevice;
+
         public UserController(IUserService userService) : base(userService)
         {
             this.friendRequestSevice = new FriendRequestSevice();
@@ -49,6 +53,26 @@ namespace ChatAPIProject.Controllers
             {
                 return this.BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet]
+        [Route("AllCommunications")]
+        public IHttpActionResult AllCommunications()
+        {
+            var userId = GetUserId();
+         
+            
+
+            return this.BadRequest();
+        }
+
+        private int GetUserId()
+        {
+            var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
+            var userId = claims?.FirstOrDefault(x => x.Type.Equals("http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata", StringComparison.OrdinalIgnoreCase))?.Value;
+            var result = int.Parse(userId);
+
+            return result; 
         }
     }
 }
