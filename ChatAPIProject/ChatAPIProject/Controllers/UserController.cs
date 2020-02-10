@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Security.Claims;
 using System.Web;
 using System.Linq;
+using Models.InputModels.User;
 
 namespace ChatAPIProject.Controllers
 {
@@ -21,9 +22,9 @@ namespace ChatAPIProject.Controllers
         private IFriendRequestSevice friendRequestSevice;
         private ICommunicationService communicationService;
 
-        public UserController(IUserService userService, ICommunicationService communicationService) : base(userService)
+        public UserController(IUserService userService, ICommunicationService communicationService, IFriendRequestSevice friendRequestSevice) : base(userService)
         {
-            this.friendRequestSevice = new FriendRequestSevice();
+            this.friendRequestSevice = friendRequestSevice;
             this.communicationService = communicationService;
         }
 
@@ -104,6 +105,24 @@ namespace ChatAPIProject.Controllers
             }
 
             return this.Ok(allRequests);
+        }
+
+        [HttpPost]
+        [Route("AcceptRequest")]
+        public IHttpActionResult AcceptRequest(AcceptFriendRequestInputModel model)
+        {
+            var userId = GetUserId();
+            try
+            {
+                this.friendRequestSevice.AcceptRequest(userId, model.FriendId);
+                this.communicationService.Create(userId, model.FriendId);
+
+                return Ok("User friend request is accepted successfully.");
+            }
+            catch (Exception)
+            {
+                return this.BadRequest("Invalid operation.Try again.");
+            }
         }
 
         private int GetUserId()

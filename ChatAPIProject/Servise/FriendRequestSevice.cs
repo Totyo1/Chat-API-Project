@@ -35,15 +35,6 @@ namespace Service
             throw new NotImplementedException();
         }
 
-        bool IFriendRequestSevice.ApproveRequest(int senderId)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IFriendRequestSevice.DeclineRequest(int senderId)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<FriendServiceModel> GetFriends(int userId, string status)
         {
@@ -57,6 +48,16 @@ namespace Service
             var requests = this.friendRequestData.GetFriendRequests(userId, status);
 
             return requests;
+        }
+
+        public void AcceptRequest(int userId, int receiverId)
+        {
+            this.friendRequestData.AcceptRequest(userId, receiverId);
+        }
+
+        public void RejectRequest(int userId, int receiverId)
+        {
+            this.friendRequestData.RejectRequest(userId, receiverId);
         }
     }
 }
