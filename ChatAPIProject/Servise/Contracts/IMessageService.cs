@@ -8,7 +8,8 @@ namespace Service.Contracts
     {
         List<MessageServiceModel> GetMessagesByCommunicationId(int comminucationId);
 
-        bool SendMessage(MessageInputModel inputModel);
+        void SendMessage(int communicationId, string content, int userId, int receiverId);
+
         void DeleteUsersMessages(int id);
     }
 }

@@ -27,20 +27,14 @@ namespace ChatAPIProject.Service
             throw new NotImplementedException();
         }
 
-        public bool SendMessage(MessageInputModel inputModel)
-        {
-            IMapper mapper = config.CreateMapper();
-            MessageServiceModel model = mapper.Map<MessageServiceModel>(inputModel);
-            return this.messageData.SendMessage(model);
-
-            //if communication exist with senderId and receiverId get communication continue this conversation, else create new communicaion add it to database
-            //create new message
-            //add message to database 
-            throw new NotImplementedException();
-        }
         public void DeleteUsersMessages(int id)
         {
             this.messageData.DeleteUsersMessages(id);
+        }
+
+        public void SendMessage(int communicationId, string content, int userId, int receiverId)
+        {
+            this.messageData.SendMessage(communicationId, content, userId, receiverId);
         }
     }
 }

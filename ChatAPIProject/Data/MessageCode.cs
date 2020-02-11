@@ -19,9 +19,21 @@ namespace ChatAPIProject.Data
             this.connString = ConfigurationManager.AppSettings["myDbConnection"];
         }
         
-        public bool SendMessage(MessageServiceModel model)
+        public void SendMessage(int communicationId,string content,int userId,int receiverId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_msg_cre", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+                cmd.Parameters.AddWithValue("@com_id", communicationId);
+                cmd.Parameters.AddWithValue("@con_txt", content);
+                cmd.Parameters.AddWithValue("@usr_id", userId);
+                cmd.Parameters.AddWithValue("@rec_id", receiverId);
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
         }
 
         public void DeleteUsersMessages(int id)

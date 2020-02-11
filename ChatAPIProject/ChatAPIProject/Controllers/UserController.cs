@@ -11,6 +11,7 @@ using Models.InputModels.User;
 using Models.InputModels.FriendRequest;
 using Models.ServiceModels.FriendRequest;
 using System.Collections.Generic;
+using Models.InputModels.Message;
 
 namespace ChatAPIProject.Controllers
 {
@@ -24,8 +25,8 @@ namespace ChatAPIProject.Controllers
 
         private IFriendRequestSevice friendRequestSevice;
         private ICommunicationService communicationService;
-        private List<int> listOfFriendRequests;
         private IMessageService messageService;
+        private List<int> listOfFriendRequests;
 
         public UserController(IUserService userService, IFriendRequestSevice friendRequestSevice, ICommunicationService communicationService, IMessageService messageService) : base(userService)
         {
@@ -188,6 +189,30 @@ namespace ChatAPIProject.Controllers
             {
                 return this.BadRequest("Invalid operation.Try again.");
             }
+        }
+
+        [HttpPost]
+        [Route("SendMessage")]
+        public IHttpActionResult SendMessage(SendMessageInputModel model)
+        {
+            var userId = this.GetUserId();
+            var communication = this.communicationService.GetCommunicationByUsers(userId, model.ReceiverId);
+            if(communication == null)
+            {
+                return this.BadRequest($"Communication between this users(me:{userId};receiver:{model.ReceiverId}) does not exist.");
+            }
+            var communicationId = communication.Id;
+
+            try
+            {
+                this.messageService.SendMessage(communicationId, model.Content, userId, model.ReceiverId);
+            }
+            catch (Exception)
+            {
+                return this.BadRequest("Fail to send message.");
+            }
+
+            return this.Ok("Message send successfully.");
         }
 
         private int GetUserId()
