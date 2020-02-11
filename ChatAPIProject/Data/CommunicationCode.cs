@@ -77,9 +77,8 @@ namespace ChatAPIProject.Data
             return id;
         }
 
-        public void DeletUeserCommunications(int id)
+        public void DeletUserCommunications(int id)
         {
-            int result;
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 SqlCommand cmd = new SqlCommand("tdb_conn_dlt", conn);

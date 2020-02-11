@@ -44,7 +44,7 @@ namespace ChatAPIProject.Service
 
         public void DeleteUsersCommunications(int id)
         {
-            this.communicationCode.DeletUeserCommunications(id);
+            this.communicationCode.DeletUserCommunications(id);
         }
 
         public Communication GetCommunicationById(int communicationId)

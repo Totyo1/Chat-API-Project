@@ -10,8 +10,6 @@ namespace Service.Contracts
     {
         bool SendFriendRequest(FriendRequestInputModel model);
 
-        IEnumerable<FriendRequestServiceModel> All();
-
         void AcceptRequest(int userId, int receiverId);
 
         void RejectRequest(int userId, int receiverId);

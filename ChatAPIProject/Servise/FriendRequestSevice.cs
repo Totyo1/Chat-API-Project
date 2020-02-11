@@ -30,12 +30,6 @@ namespace Service
             }
         }
 
-        IEnumerable<FriendRequestServiceModel> IFriendRequestSevice.All()
-        {
-            throw new NotImplementedException();
-        }
-
-
         public List<FriendServiceModel> GetFriends(int userId, string status)
         {
             List<FriendServiceModel> friends = this.friendRequestData.GetFriends(userId, status);
