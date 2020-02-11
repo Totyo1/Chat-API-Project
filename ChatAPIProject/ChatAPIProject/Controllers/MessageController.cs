@@ -20,26 +20,6 @@ namespace ChatAPIProject.Controllers
             this.messageService = messageService;
         }
 
-        [HttpPost]
-        [Route("SendMessage")]
-        public IHttpActionResult SendMessage(MessageInputModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return this.BadRequest(ModelState);
-            }
-
-            int senderId = 1; //User.FindFirstValue(ClaimTypes.Name);
-            bool isSent = this.messageService.SendMessage(model);
-
-            if (!isSent)
-            {
-                return this.BadRequest("Fail to send message.");
-            }
-
-            return this.Ok("Message send successfully.");
-        }
-
         [HttpGet]
         [Route("GetMessages")]
         public IHttpActionResult GetMessages(int id)
