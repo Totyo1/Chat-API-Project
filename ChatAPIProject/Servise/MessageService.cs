@@ -23,8 +23,7 @@ namespace ChatAPIProject.Service
 
         public List<MessageServiceModel> GetMessagesByCommunicationId(int comminucationId)
         {
-            //get take all messages where communication id is input communicationId
-            throw new NotImplementedException();
+            return this.messageData.GetMessagesByCommunicationId(comminucationId);
         }
 
         public void DeleteUsersMessages(int id)

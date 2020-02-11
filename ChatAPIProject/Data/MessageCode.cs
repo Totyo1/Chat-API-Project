@@ -49,5 +49,43 @@ namespace ChatAPIProject.Data
                 conn.Close();
             }
         }
+
+        public List<MessageServiceModel> GetMessagesByCommunicationId(int communicationId)
+        {
+            List<MessageServiceModel> list = new List<MessageServiceModel>();
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_msg_bid", conn);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+                cmd.Parameters.AddWithValue("@com_id", communicationId);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.HasRows)
+                        {
+                            MessageServiceModel communication = new MessageServiceModel
+                            {
+                                Id = int.Parse(reader["msg_id"].ToString()),
+                                CommunicationId = int.Parse(reader["communication_id"].ToString()),
+                                Date = reader["date"].ToString(),
+                                Content = reader["content_text"].ToString(),
+                                AuthorId = int.Parse(reader["user_author_id"].ToString()),
+                                ReceiverId = int.Parse(reader["receiver_id"].ToString())
+                            };
+
+                            list.Add(communication);
+                        }
+                    }
+                }
+
+                conn.Close();
+            }
+
+            return list;
+        }
     }
 }

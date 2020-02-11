@@ -215,6 +215,26 @@ namespace ChatAPIProject.Controllers
             return this.Ok("Message send successfully.");
         }
 
+        [HttpGet]
+        [Route("GetMessages")]
+        public IHttpActionResult GetMessagesByCommunicationId(int communicationId)
+        {
+            var userId = this.GetUserId();
+            var communication = this.communicationService.GetCommunicationById(communicationId);
+            if(communication == null)
+            {
+                return this.BadRequest($"Conversation does not exist.");
+            }
+
+            var messages = this.messageService.GetMessagesByCommunicationId(communication.Id);
+            if(messages.Count == 0)
+            {
+                return this.BadRequest("There are no messages available.");
+            }
+
+            return this.Ok(messages);
+        }
+
         private int GetUserId()
         {
             List<Claim> claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();

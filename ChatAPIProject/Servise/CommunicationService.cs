@@ -42,6 +42,13 @@ namespace ChatAPIProject.Service
             this.communicationCode.DeleteserCommunications(id);
         }
 
+        public Communication GetCommunicationById(int communicationId)
+        {
+            var communication = this.communicationCode.GetCommunicationById(communicationId);
+
+            return communication;
+        }
+
         public Communication GetCommunicationByUsers(int firstUserId, int secondUserId)
         {
             Communication communication = this.communicationCode.GetCommunicationByUsers(firstUserId, secondUserId);
