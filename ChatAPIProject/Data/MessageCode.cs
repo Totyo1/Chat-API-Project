@@ -37,5 +37,19 @@ namespace ChatAPIProject.Data
                 conn.Close();
             }
         }
+
+        public void DeleteFriendMeesages(int commId)
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_msg_com_id_dlt", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@id", commId);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
     }
 }

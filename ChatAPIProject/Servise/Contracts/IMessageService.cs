@@ -10,5 +10,6 @@ namespace Service.Contracts
 
         bool SendMessage(MessageInputModel inputModel);
         void DeleteUsersMessages(int id);
+        void DeleteFriendMeesages(int commId);
     }
 }

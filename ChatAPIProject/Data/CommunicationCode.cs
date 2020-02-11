@@ -53,8 +53,33 @@ namespace ChatAPIProject.Data
             return list;
         }
 
-        public void DeleteserCommunications(int id)
+        public int DeleteFriend(int myId, int friendId)
         {
+            int id = 0;
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_com_fr_dlt", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@id_1", myId);
+                cmd.Parameters.AddWithValue("@id_2", friendId);
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        id = int.Parse(dr["id"].ToString());
+                    }
+                }
+                conn.Close();
+            }
+            return id;
+        }
+
+        public void DeletUeserCommunications(int id)
+        {
+            int result;
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 SqlCommand cmd = new SqlCommand("tdb_conn_dlt", conn);
@@ -62,6 +87,7 @@ namespace ChatAPIProject.Data
                 conn.Open();
 
                 cmd.Parameters.AddWithValue("@id", id);
+                
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }

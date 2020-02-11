@@ -35,6 +35,55 @@ namespace ChatAPIProject.Controllers
             this.messageService = messageService;
         }
 
+        [HttpGet]
+        [Route("Communications")]
+        public IHttpActionResult AllCommunications()
+        {
+            var userId = GetUserId();
+            var allCommunications = this.communicationService.All(userId);
+            if (allCommunications.Count == 0)
+            {
+                return this.BadRequest("No available communications.");
+            }
+
+            return this.Ok(allCommunications);
+        }
+
+        [HttpGet]
+        [Route("Friends")]
+        public IHttpActionResult GetFriends()
+        {
+            int userId = GetUserId();
+            string status = STATUS_ACCEPTED;
+            var allFriends = friendRequestSevice.GetFriends(userId, status);
+            if (allFriends.Count == 0)
+            {
+                return this.BadRequest("No friends available.");
+            }
+
+            return this.Ok(allFriends);
+        }
+
+        [HttpGet]
+        [Route("FriendRequests")]
+        public IHttpActionResult GetFriendRequest()
+        {
+            int userId = GetUserId();
+            string status = STATUS_PENDING;
+            List<RequestServiceModel> allRequests = this.friendRequestSevice.GetRequests(userId, status);
+            if (allRequests.Count == 0)
+            {
+                return this.BadRequest("No available friend requests.");
+            }
+
+            foreach (var item in allRequests)
+            {
+                listOfFriendRequests.Add(item.FriendId);
+            }
+
+            return this.Ok(allRequests);
+        }
+
         [HttpPost]
         [Route("Create")]
         public IHttpActionResult CreateUser(UserInputModel inputModel)
@@ -70,74 +119,7 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest(ex.Message);
             }
         }
-
-        [HttpGet]
-        [Route("Communications")]
-        public IHttpActionResult AllCommunications()
-        {
-            var userId = GetUserId();
-            var allCommunications = this.communicationService.All(userId);
-            if(allCommunications.Count == 0)
-            {
-                return this.BadRequest("No available communications.");
-            }
-
-            return this.Ok(allCommunications);
-        }
-
-        [HttpGet]
-        [Route("Friends")]
-        public IHttpActionResult GetFriends()
-        {
-            int userId = GetUserId();
-            string status = STATUS_ACCEPTED;
-            var allFriends = friendRequestSevice.GetFriends(userId, status);
-            if (allFriends.Count == 0)
-            {
-                return this.BadRequest("No friends available.");
-            }
-
-            return this.Ok(allFriends);
-        }
-
-        [HttpGet]
-        [Route("FriendRequests")]
-        public IHttpActionResult GetFriendRequest()
-        {
-            int userId = GetUserId();
-            string status = STATUS_PENDING;
-            List<RequestServiceModel> allRequests = this.friendRequestSevice.GetRequests(userId, status);
-            if(allRequests.Count == 0)
-            {
-                return this.BadRequest("No available friend requests.");
-            }
-
-            foreach (var item in allRequests)
-            {
-                listOfFriendRequests.Add(item.FriendId);
-            }
-
-            return this.Ok(allRequests);
-        }
-
-        [HttpDelete]
-        [Route("delete")]
-        public IHttpActionResult DeleteUser()
-        {
-            try
-            {
-                this.Service.DeleteUser(GetUserId());
-                this.communicationService.DeleteUsersCommunications(GetUserId());
-                this.friendRequestSevice.DeleteUserRequests(GetUserId());
-                this.messageService.DeleteUsersMessages(GetUserId());
-                return this.Ok("Successfully deleted");
-            }
-            catch (Exception ex)
-            {
-                return this.BadRequest(ex.Message);
-            }
-        }
-
+        
         [HttpPost]
         [Route("AcceptRequest")]
         public IHttpActionResult AcceptRequest(AcceptFriendRequestInputModel model)
@@ -182,6 +164,41 @@ namespace ChatAPIProject.Controllers
             catch (Exception)
             {
                 return this.BadRequest("Invalid operation.Try again.");
+            }
+        }
+
+        [HttpDelete]
+        [Route("deleteUser")]
+        public IHttpActionResult DeleteUser()
+        {
+            try
+            {
+                this.Service.DeleteUser(GetUserId());
+                this.communicationService.DeleteUsersCommunications(GetUserId());
+                this.friendRequestSevice.DeleteUserRequests(GetUserId());
+                this.messageService.DeleteUsersMessages(GetUserId());
+                return this.Ok("Successfully deleted");
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("deleteFriend")]
+        public IHttpActionResult DeleteFriend(int friendId)
+        {
+            try
+            {
+              int commId = this.communicationService.DeleteFriend(GetUserId(), friendId);
+                this.messageService.DeleteFriendMeesages(commId);
+                this.friendRequestSevice.DeleteFriendRequests(GetUserId(), friendId);
+                return this.Ok("You are not friends anymore");
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
             }
         }
 

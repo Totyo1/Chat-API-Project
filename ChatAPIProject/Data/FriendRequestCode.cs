@@ -67,6 +67,21 @@ namespace ChatAPIProject.Data
             return list;
         }
 
+        public void DeleteFriendRequests(int myId, int friendId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_frsh_dlt", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@my_id", myId);
+                cmd.Parameters.AddWithValue("@ex_fr", friendId);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
         public void DeleteUserRequests(int id)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
