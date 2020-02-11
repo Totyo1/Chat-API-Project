@@ -35,5 +35,10 @@ namespace ChatAPIProject.Service
         {
             this.messageData.SendMessage(communicationId, content, userId, receiverId);
         }
+
+        public void DeleteFriendMeesages(int commId)
+        {
+            this.messageData.DeleteFriendMeesages(commId);
+        }
     }
 }

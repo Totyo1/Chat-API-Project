@@ -64,5 +64,10 @@ namespace Service
         {
             this.friendRequestData.DeleteUserRequests(id);
         }
+
+        public void DeleteFriendRequests(int myId, int friendId)
+        {
+            this.friendRequestData.DeleteFriendRequests(myId, friendId);
+        }
     }
 }

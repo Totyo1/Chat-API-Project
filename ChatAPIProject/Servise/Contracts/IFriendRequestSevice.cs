@@ -21,5 +21,7 @@ namespace Service.Contracts
         List<RequestServiceModel> GetRequests(int userId, string status);
 
         void DeleteUserRequests(int id);
+
+        void DeleteFriendRequests(int myId, int friendId);
     }
 }

@@ -11,5 +11,6 @@ namespace Service.Contracts
         void SendMessage(int communicationId, string content, int userId, int receiverId);
 
         void DeleteUsersMessages(int id);
+        void DeleteFriendMeesages(int commId);
     }
 }
