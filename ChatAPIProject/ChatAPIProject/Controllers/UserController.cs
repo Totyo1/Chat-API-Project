@@ -98,13 +98,19 @@ namespace ChatAPIProject.Controllers
         [Route("SendFriendRequest")]
         public IHttpActionResult SendFriendRequest(int recieverId)
         {
+            var userId = this.GetUserId();
             FriendRequestInputModel model = new FriendRequestInputModel
             {
-                SenderId = this.GetUserId(),
+                SenderId = userId,
                 ReceiverId = recieverId,
                 Status = "Pending"
             };
 
+            var isRequestExist = this.ChechIfRequestExist(userId, STATUS_PENDING, model.ReceiverId);
+            if (isRequestExist)
+            {
+                return this.BadRequest($"You already send friend request to user with id {model.ReceiverId}. Wait for response.");
+            }
 
             try
             {
@@ -234,7 +240,11 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest($"Conversation does not exist.");
             }
 
-            var messages = this.messageService.GetMessagesByCommunicationId(communication.Id);
+            var messages = this.messageService
+                .GetMessagesByCommunicationId(communication.Id)
+                .OrderByDescending(x => x.Date)
+                .ToList();
+
             if(messages.Count == 0)
             {
                 return this.BadRequest("There are no messages available.");
