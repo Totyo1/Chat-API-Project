@@ -35,43 +35,7 @@ namespace ChatAPIProject.Controllers
             this.listOfFriendRequests = new List<int>();
             this.messageService = messageService;
         }
-
-        [HttpPost]
-        [Route("Create")]
-        public IHttpActionResult CreateUser(UserInputModel inputModel)
-        {
-            try
-            {
-                this.Service.CreateUser(inputModel);
-                return this.Ok("Successfully created");
-            }
-            catch (Exception ex)
-            {
-                return this.BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost]
-        [Route("SendFriendRequest")]
-        public IHttpActionResult SendFriendRequest(int recieverId)
-        {
-            FriendRequestInputModel model = new FriendRequestInputModel
-            {
-                SenderId = this.GetUserId(),
-                ReceiverId = recieverId,
-                Status = "Pending"
-            };
-            try
-            {
-                this.friendRequestSevice.SendFriendRequest(model);
-                return this.Ok("Request sent successfully");
-            }
-            catch (Exception ex)
-            {
-                return this.BadRequest(ex.Message);
-            }
-        }
-
+        
         [HttpGet]
         [Route("Communications")]
         public IHttpActionResult AllCommunications()
