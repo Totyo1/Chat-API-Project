@@ -290,6 +290,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <EmbeddedResource Include="Scripts\redirect.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -354,9 +355,6 @@
       <Project>{1089bbdb-d1e4-4731-a24e-eff3e7b990fa}</Project>
       <Name>Service</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\redirect_page.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
