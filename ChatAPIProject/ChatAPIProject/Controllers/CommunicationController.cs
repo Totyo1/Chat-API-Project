@@ -13,9 +13,12 @@ namespace ChatAPIProject.Controllers
     [RoutePrefix("api/Communication")]
     public class CommunicationController : BaseController<ICommunicationService>
     {
+        private IUserService userService;
 
-        public CommunicationController(ICommunicationService communicationService) : base(communicationService)
-         { }
+        public CommunicationController(ICommunicationService communicationService, IUserService userService) : base(communicationService)
+        {
+            this.userService = userService;
+        }
 
         [HttpGet]
         [Route("All")]
@@ -49,6 +52,14 @@ namespace ChatAPIProject.Controllers
         [Route("Create")]
         public IHttpActionResult CreateCommunication(CommunicationInputModel model)
         {
+            if (!this.CheckIfUserExist(model.FirstUserId))
+            {
+                return this.BadRequest($"User with id {model.FirstUserId} does not exist.");
+            }
+            if (!this.CheckIfUserExist(model.SecondUserId))
+            {
+                return this.BadRequest($"User with id {model.SecondUserId} does not exist.");
+            }
             if (!ModelState.IsValid)
             {
                 return this.BadRequest(ModelState);
@@ -72,6 +83,13 @@ namespace ChatAPIProject.Controllers
             var result = int.Parse(userId);
 
             return result;
+        }
+
+        private bool CheckIfUserExist(int id)
+        {
+            var user = this.userService.IsExist(id);
+
+            return user != null ? true : false;
         }
 
     }

@@ -1,11 +1,8 @@
-﻿using ChatAPIProject.Models.InputModels.Message;
-using ChatAPIProject.Models.ServiceModels.Message;
+﻿using ChatAPIProject.Models.ServiceModels.Message;
 using Service.Contracts;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Web.Http;
-using System.Web.Security;
 
 namespace ChatAPIProject.Controllers
 {
@@ -14,22 +11,25 @@ namespace ChatAPIProject.Controllers
     public class MessageController : BaseController<IMessageService>
     {
         IMessageService messageService;
+        ICommunicationService communicationService;
 
-        public MessageController(IMessageService messageService) : base(messageService)
+        public MessageController(IMessageService messageService, ICommunicationService communicationService) : base(messageService)
         {
             this.messageService = messageService;
+            this.communicationService = communicationService;
         }
 
         [HttpGet]
         [Route("GetMessages")]
-        public IHttpActionResult GetMessages(int id)
+        public IHttpActionResult GetMessages(int communicationId)
         {
-            if(id < 0)
+            var communication = this.communicationService.GetCommunicationById(communicationId);
+            if (communication == null)
             {
-                return this.BadRequest("Invalid request.");
+                return this.BadRequest($"Conversation does not exist.");
             }
 
-            List<MessageServiceModel> messages = this.Service.GetMessagesByCommunicationId(id).ToList();
+            List<MessageServiceModel> messages = this.Service.GetMessagesByCommunicationId(communicationId).ToList();
 
             return this.Ok(messages);
         }

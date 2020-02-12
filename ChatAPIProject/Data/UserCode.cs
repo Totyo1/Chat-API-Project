@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using System;
+using Models.ServiceModels.User;
 
 namespace ChatAPIProject.Data
 {
@@ -74,6 +75,36 @@ namespace ChatAPIProject.Data
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
+        }
+
+        public IsExistUserServiceModel IsExist(int id)
+        {
+            IsExistUserServiceModel user = null;
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_usr_ex", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+                cmd.Parameters.AddWithValue("@id", id);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        if (reader.HasRows)
+                        {
+                            user = new IsExistUserServiceModel
+                            {
+                                Id = int.Parse(reader["user_id"].ToString()),
+                                Username = reader["username"].ToString(),
+                                Password = reader["password"].ToString()
+                            };
+                        }
+                    }
+                }
+                conn.Close();
+            }
+
+            return user;
         }
     }
 }
