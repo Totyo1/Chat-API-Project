@@ -12,6 +12,7 @@ using Models.InputModels.FriendRequest;
 using Models.ServiceModels.FriendRequest;
 using System.Collections.Generic;
 using Models.InputModels.Message;
+using Microsoft.Extensions.Caching.Memory;
 using ChatAPIProject.Models.ServiceModels.Communication;
 
 namespace ChatAPIProject.Controllers
@@ -27,13 +28,11 @@ namespace ChatAPIProject.Controllers
         private IFriendRequestSevice friendRequestSevice;
         private ICommunicationService communicationService;
         private IMessageService messageService;
-        private List<int> listOfFriendRequests;
 
         public UserController(IUserService userService, IFriendRequestSevice friendRequestSevice, ICommunicationService communicationService, IMessageService messageService) : base(userService)
         {
             this.friendRequestSevice = friendRequestSevice;
             this.communicationService = communicationService;
-            this.listOfFriendRequests = new List<int>();
             this.messageService = messageService;
         }
         
@@ -78,11 +77,6 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest("No available friend requests.");
             }
 
-            foreach (var item in allRequests)
-            {
-                listOfFriendRequests.Add(item.FriendId);
-            }
-
             return this.Ok(allRequests);
         }
 
@@ -105,12 +99,20 @@ namespace ChatAPIProject.Controllers
         [Route("SendFriendRequest")]
         public IHttpActionResult SendFriendRequest(int recieverId)
         {
+            var userId = this.GetUserId();
             FriendRequestInputModel model = new FriendRequestInputModel
             {
-                SenderId = this.GetUserId(),
+                SenderId = userId,
                 ReceiverId = recieverId,
                 Status = "Pending"
             };
+
+            var isRequestExist = this.ChechIfRequestExist(userId, STATUS_PENDING, model.ReceiverId);
+            if (isRequestExist)
+            {
+                return this.BadRequest($"You already send friend request to user with id {model.ReceiverId}. Wait for response.");
+            }
+
             try
             {
                 this.friendRequestSevice.SendFriendRequest(model);
@@ -126,13 +128,13 @@ namespace ChatAPIProject.Controllers
         [Route("AcceptRequest")]
         public IHttpActionResult AcceptRequest(AcceptFriendRequestInputModel model)
         {
-            bool isRequestExist = listOfFriendRequests.Contains(model.FriendId);
+            var userId = GetUserId();
+            var isRequestExist = this.ChechIfRequestExist(userId, STATUS_PENDING, model.FriendId);
             if (!isRequestExist)
             {
                 return this.BadRequest($"You don't have request from user with id {model.FriendId}.");
             }
 
-            int userId = GetUserId();
             try
             {
                 this.friendRequestSevice.AcceptRequest(userId, model.FriendId);
@@ -150,13 +152,13 @@ namespace ChatAPIProject.Controllers
         [Route("RejectRequest")]
         public IHttpActionResult RejectRequest(RejectFriendRequestInputModel model)
         {
-            bool isRequestExist = listOfFriendRequests.Contains(model.FriendId);
+            var userId = GetUserId();
+            var isRequestExist = this.ChechIfRequestExist(userId, STATUS_PENDING, model.FriendId);
             if (!isRequestExist)
             {
                 return this.BadRequest($"You don't have request from user with id {model.FriendId}.");
             }
-
-            int userId = GetUserId();
+            
             try
             {
                 this.friendRequestSevice.RejectRequest(userId, model.FriendId);
@@ -228,6 +230,30 @@ namespace ChatAPIProject.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetMessages")]
+        public IHttpActionResult GetMessagesByCommunicationId(int communicationId)
+        {
+            var userId = this.GetUserId();
+            var communication = this.communicationService.GetCommunicationById(communicationId);
+            if(communication == null)
+            {
+                return this.BadRequest($"Conversation does not exist.");
+            }
+
+            var messages = this.messageService
+                .GetMessagesByCommunicationId(communication.Id)
+                .OrderByDescending(x => x.Date)
+                .ToList();
+
+            if(messages.Count == 0)
+            {
+                return this.BadRequest("There are no messages available.");
+            }
+
+            return this.Ok(messages);
+        }
+
         private int GetUserId()
         {
             List<Claim> claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
@@ -235,6 +261,12 @@ namespace ChatAPIProject.Controllers
             int result = int.Parse(userId);
 
             return result; 
+        }
+
+        private bool ChechIfRequestExist(int userId,string status, int friendId)
+        {
+            var allRequests = this.friendRequestSevice.GetRequests(userId, STATUS_PENDING);
+            return allRequests.Any(x => x.FriendId == friendId);
         }
     }
 }

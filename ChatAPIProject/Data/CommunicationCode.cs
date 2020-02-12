@@ -77,9 +77,8 @@ namespace ChatAPIProject.Data
             return id;
         }
 
-        public void DeletUeserCommunications(int id)
+        public void DeletUserCommunications(int id)
         {
-            int result;
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 SqlCommand cmd = new SqlCommand("tdb_conn_dlt", conn);
@@ -122,6 +121,38 @@ namespace ChatAPIProject.Data
                 cmd.Parameters.AddWithValue("@usr_id_1", firstUserId);
                 cmd.Parameters.AddWithValue("@usr_id_2", secondUserId);
 
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        if (reader.HasRows)
+                        {
+                            communication = new Communication
+                            {
+                                Id = int.Parse(reader["communication_id"].ToString()),
+                                FirstUserId = int.Parse(reader["first_user_id"].ToString()),
+                                SecondUserId = int.Parse(reader["second_user_id"].ToString())
+                            };
+                        }
+                    }
+                }
+
+                conn.Close();
+            }
+
+            return communication;
+        }
+
+        public Communication GetCommunicationById(int communicationId)
+        {
+            Communication communication = null;
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_com_id", conn);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+                cmd.Parameters.AddWithValue("@com_id", communicationId);
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())

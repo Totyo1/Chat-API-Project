@@ -64,6 +64,7 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest("Invalid input.");      
             }
         }
+
         private int GetUserId()
         {
             var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
