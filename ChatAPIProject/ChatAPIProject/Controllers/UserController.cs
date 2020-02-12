@@ -88,7 +88,12 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest($"User with id {recieverId} does not exist.");
             }
 
-            var userId = this.GetUserId();
+            int userId = this.GetUserId();
+
+            if (userId == recieverId)
+            {
+                return this.BadRequest("You can`t sennd friend request to yourself.");
+            }
             FriendRequestInputModel model = new FriendRequestInputModel
             {
                 SenderId = userId,
