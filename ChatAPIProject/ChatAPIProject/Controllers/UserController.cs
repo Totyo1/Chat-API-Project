@@ -115,7 +115,6 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest("There are no messages available.");
             }
 
-
             return this.Ok(messages);
         }
 
