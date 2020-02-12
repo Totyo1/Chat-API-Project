@@ -8,6 +8,7 @@ using System.Web;
 using ChatAPIProject.Data;
 using ChatAPIProject.Models.DataModels;
 using ChatAPIProject.Models.InputModels.User;
+using Models.ServiceModels.User;
 
 namespace ChatAPIProject.Service
 {
@@ -37,6 +38,11 @@ namespace ChatAPIProject.Service
         public UserDataModel GetUser(string username, string password)
         {
             return this.userCode.GetUserByUsernameAndPassword(username, password);
+        }
+
+        public IsExistUserServiceModel IsExist(int id)
+        {
+            return this.userCode.IsExist(id);
         }
     }
 }

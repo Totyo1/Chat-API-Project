@@ -1,6 +1,6 @@
-﻿
-using ChatAPIProject.Models.DataModels;
+﻿using ChatAPIProject.Models.DataModels;
 using ChatAPIProject.Models.InputModels.User;
+using Models.ServiceModels.User;
 
 namespace Service.Contracts
 {
@@ -11,5 +11,7 @@ namespace Service.Contracts
          UserDataModel GetUser(string username, string password);
 
         void DeleteUser(int id);
+
+        IsExistUserServiceModel IsExist(int id);
     }
 }

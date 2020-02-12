@@ -67,6 +67,7 @@
     <Compile Include="ServiceModels\FriendRequest\FriendServiceModel.cs" />
     <Compile Include="ServiceModels\FriendRequest\RequestServiceModel.cs" />
     <Compile Include="ServiceModels\Message\MessageServiceModel.cs" />
+    <Compile Include="ServiceModels\User\IsExistUserServiceModel.cs" />
     <Compile Include="ServiceModels\User\UserServiceModel.cs" />
   </ItemGroup>
   <ItemGroup />
