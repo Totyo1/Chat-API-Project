@@ -122,10 +122,8 @@ namespace ChatAPIProject.Data
                         }
                     }
                 }
-
                 conn.Close();
             }
-
             return list;
         }
 
