@@ -63,8 +63,8 @@ namespace ChatAPIProject.Controllers
         }
 
         [HttpGet]
-        [Route("FriendRequests")]
-        public IHttpActionResult GetFriendRequest()
+        [Route("SendedFriendRequests")]
+        public IHttpActionResult GetSendedFriendRequest()
         {
             int userId = GetUserId();
             string status = STATUS_PENDING;
@@ -76,7 +76,22 @@ namespace ChatAPIProject.Controllers
 
             return this.Ok(allRequests);
         }
-        
+
+        [HttpGet]
+        [Route("FriendRequests")]
+        public IHttpActionResult GetFriendRequest()
+        {
+            int userId = GetUserId();
+            string status = STATUS_PENDING;
+            List<RequestServiceModel> allRequests = this.friendRequestSevice.GetRequestsToMe(userId, status);
+            if (allRequests.Count == 0)
+            {
+                return this.BadRequest("No available friend requests.");
+            }
+
+            return this.Ok(allRequests);
+        }
+
         [HttpPost]
         [Route("SendFriendRequest")]
         public IHttpActionResult SendFriendRequest(int recieverId)
@@ -271,7 +286,7 @@ namespace ChatAPIProject.Controllers
 
         private bool ChechIfRequestExist(int userId,string status, int friendId)
         {
-            var allRequests = this.friendRequestSevice.GetRequests(userId, STATUS_PENDING);
+            var allRequests = this.friendRequestSevice.GetRequestsToMe(userId, STATUS_PENDING);
             return allRequests.Any(x => x.FriendId == friendId);
         }
 

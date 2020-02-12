@@ -63,5 +63,10 @@ namespace Service
         {
             this.friendRequestData.DeleteFriendRequests(myId, friendId);
         }
+
+        public List<RequestServiceModel> GetRequestsToMe(int userId, string status)
+        {
+            return this.friendRequestData.GetRequestsToMe(userId, status);
+        }
     }
 }

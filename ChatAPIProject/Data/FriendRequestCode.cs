@@ -127,6 +127,37 @@ namespace ChatAPIProject.Data
             return list;
         }
 
+        public List<RequestServiceModel> GetRequestsToMe(int userId,string status)
+        {
+            List<RequestServiceModel> list = new List<RequestServiceModel>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("tdb_frr_rme", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+
+                cmd.Parameters.AddWithValue("@usr_id", userId);
+                cmd.Parameters.AddWithValue("@req_status", status);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.HasRows)
+                        {
+                            RequestServiceModel friend = new RequestServiceModel
+                            {
+                                FriendId = int.Parse(reader["user_id"].ToString())
+                            };
+
+                            list.Add(friend);
+                        }
+                    }
+                }
+                conn.Close();
+            }
+            return list;
+        }
+
         public void AcceptRequest(int userId, int receiverId)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
