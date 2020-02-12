@@ -94,6 +94,30 @@ namespace ChatAPIProject.Controllers
             return this.Ok(allRequests);
         }
 
+        [HttpGet]
+        [Route("GetMessages")]
+        public IHttpActionResult GetMessagesByCommunicationId(int communicationId)
+        {
+            int userId = this.GetUserId();
+            Communication communication = this.communicationService.GetCommunicationById(communicationId);
+            if (communication == null)
+            {
+                return this.BadRequest($"Conversation does not exist.");
+            }
+
+            List<MessageServiceModel> messages = this.messageService
+                .GetMessagesByCommunicationId(communication.Id)
+                .OrderByDescending(x => x.Date)
+                .ToList();
+
+            if (messages.Count == 0)
+            {
+                return this.BadRequest("There are no messages available.");
+            }
+
+            return this.Ok(messages);
+        }
+
         [HttpPost]
         [Route("SendFriendRequest")]
         public IHttpActionResult SendFriendRequest(int recieverId)
@@ -265,31 +289,7 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest(ex.Message);
             }
         }
-
-        [HttpGet]
-        [Route("GetMessages")]
-        public IHttpActionResult GetMessagesByCommunicationId(int communicationId)
-        {
-            int userId = this.GetUserId();
-            Communication communication = this.communicationService.GetCommunicationById(communicationId);
-            if(communication == null)
-            {
-                return this.BadRequest($"Conversation does not exist.");
-            }
-
-            List<MessageServiceModel> messages = this.messageService
-                .GetMessagesByCommunicationId(communication.Id)
-                .OrderByDescending(x => x.Date)
-                .ToList();
-
-            if(messages.Count == 0)
-            {
-                return this.BadRequest("There are no messages available.");
-            }
-
-            return this.Ok(messages);
-        }
-
+        
         private int GetUserId()
         {
             List<Claim> claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
