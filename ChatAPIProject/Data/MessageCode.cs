@@ -40,7 +40,7 @@ namespace ChatAPIProject.Data
         {
             using (SqlConnection conn = new SqlConnection(connString))
             {
-                SqlCommand cmd = new SqlCommand("user_author_id", conn);
+                SqlCommand cmd = new SqlCommand("tdb_msg_com_id_dlt", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 conn.Open();
 

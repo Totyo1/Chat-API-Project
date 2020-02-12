@@ -150,8 +150,8 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest($"User with id {model.FriendId} does not exist.");
             }
 
-            var userId = GetUserId();
-            var isRequestExist = this.ChechIfRequestExist(userId, STATUS_PENDING, model.FriendId);
+            int userId = GetUserId();
+            bool isRequestExist = this.ChechIfRequestExist(userId, STATUS_PENDING, model.FriendId);
             if (!isRequestExist)
             {
                 return this.BadRequest($"You don't have request from user with id {model.FriendId}.");
