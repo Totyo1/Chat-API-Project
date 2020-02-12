@@ -109,6 +109,7 @@ namespace ChatAPIProject.Controllers
             {
                 return this.BadRequest("You can`t sennd friend request to yourself.");
             }
+
             FriendRequestInputModel model = new FriendRequestInputModel
             {
                 SenderId = userId,
@@ -116,10 +117,17 @@ namespace ChatAPIProject.Controllers
                 Status = "Pending"
             };
 
-            bool isRequestExist = this.ChechIfRequestExist(userId, STATUS_PENDING, model.ReceiverId);
-            if (isRequestExist)
+            bool doesRequestExist = this.ChechIfRequestExist(userId, STATUS_PENDING, model.ReceiverId);
+            bool doesOpositeRequestExist = this.ChechIfRequestExist(model.ReceiverId, STATUS_PENDING, userId);
+
+            if (doesRequestExist )
             {
                 return this.BadRequest($"You already send friend request to user with id {model.ReceiverId}. Wait for response.");
+            }
+
+            if (doesOpositeRequestExist)
+            {
+                return this.BadRequest($"You already have friend request from user with id {model.ReceiverId}. You have to respond.");
             }
 
             try
