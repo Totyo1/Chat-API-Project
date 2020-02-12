@@ -240,6 +240,7 @@
     <Compile Include="Authenticate.cs" />
     <Compile Include="AutofacWebapiConfig.cs" />
     <Compile Include="Common\swagger\AuthTokenInHeaderOperationFilter.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommunicationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

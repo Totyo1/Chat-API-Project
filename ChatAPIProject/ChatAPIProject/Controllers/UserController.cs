@@ -1,18 +1,16 @@
-﻿using ChatAPIProject.Models.InputModels.User;
-using ChatAPIProject.Models.InputModels.FriendRequest;
-using Service;
+﻿using ChatAPIProject.Models.InputModels.FriendRequest;
+using ChatAPIProject.Models.ServiceModels.Communication;
+using Models.InputModels.FriendRequest;
+using Models.InputModels.Message;
+using Models.InputModels.User;
+using Models.ServiceModels.FriendRequest;
+
 using Service.Contracts;
 using System;
-using System.Web.Http;
-using System.Security.Claims;
-using System.Web;
-using System.Linq;
-using Models.InputModels.User;
-using Models.InputModels.FriendRequest;
-using Models.ServiceModels.FriendRequest;
 using System.Collections.Generic;
-using Models.InputModels.Message;
-using Microsoft.Extensions.Caching.Memory;
+using System.Linq;
+using System.Security.Claims;
+using System.Web.Http;
 
 namespace ChatAPIProject.Controllers
 {
@@ -39,8 +37,8 @@ namespace ChatAPIProject.Controllers
         [Route("Communications")]
         public IHttpActionResult AllCommunications()
         {
-            var userId = GetUserId();
-            var allCommunications = this.communicationService.All(userId);
+            int userId = GetUserId();
+            List<CommunicationServiceModel> allCommunications = this.communicationService.All(userId);
             if (allCommunications.Count == 0)
             {
                 return this.BadRequest("No available communications.");
@@ -78,22 +76,7 @@ namespace ChatAPIProject.Controllers
 
             return this.Ok(allRequests);
         }
-
-        [HttpPost]
-        [Route("Create")]
-        public IHttpActionResult CreateUser(UserInputModel inputModel)
-        {
-            try
-            {
-                this.Service.CreateUser(inputModel);
-                return this.Ok("Successfully created");
-            }
-            catch (Exception ex)
-            {
-                return this.BadRequest(ex.Message);
-            }
-        }
-
+        
         [HttpPost]
         [Route("SendFriendRequest")]
         public IHttpActionResult SendFriendRequest(int recieverId)
@@ -200,7 +183,7 @@ namespace ChatAPIProject.Controllers
             {
                 return this.BadRequest($"Communication between this users(me:{userId};receiver:{model.ReceiverId}) does not exist.");
             }
-            var communicationId = communication.Id;
+            int communicationId = communication.Id;
 
             try
             {
