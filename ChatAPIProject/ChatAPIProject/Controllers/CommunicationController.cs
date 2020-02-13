@@ -38,13 +38,15 @@ namespace ChatAPIProject.Controllers
         [Route("GetByUsersIds")]
         public IHttpActionResult GetByUsers(int firstUserId, int secondUserId)
         {
-            var communication = this.Service.GetCommunicationByUsers(firstUserId, secondUserId);
-            if(communication == null)
+            var communication1 = this.Service.GetCommunicationByUsers(firstUserId, secondUserId);
+            var communication2 = this.Service.GetCommunicationByUsers(secondUserId, firstUserId);
+            if (communication1 == null && communication2 == null)
             {
                 return this.BadRequest("This communication does not esixt.");
             }
+            var result = communication1 == null ? communication2 : communication1;
 
-            return this.Ok(communication);
+            return this.Ok(result);
         }
 
         [HttpPost]
