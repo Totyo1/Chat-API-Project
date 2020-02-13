@@ -1,5 +1,6 @@
 ﻿using ChatAPIProject.Common.Automapping;
 using ChatAPIProject.Models.ServiceModels.User;
+
 using System.ComponentModel.DataAnnotations;
 
 namespace ChatAPIProject.Models.InputModels.User

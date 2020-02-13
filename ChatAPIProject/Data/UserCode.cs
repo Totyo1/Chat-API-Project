@@ -1,10 +1,10 @@
 ﻿using ChatAPIProject.Models.DataModels;
+using Models.ServiceModels.User;
 
 using System.Configuration;
-using System.Data.SqlClient;
 using System.Data;
-using System;
-using Models.ServiceModels.User;
+using System.Data.SqlClient;
+
 
 namespace ChatAPIProject.Data
 {

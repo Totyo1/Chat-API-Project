@@ -1,6 +1,6 @@
 ﻿using ChatAPIProject.Models.InputModels.FriendRequest;
 using Models.ServiceModels.FriendRequest;
-using System;
+
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;

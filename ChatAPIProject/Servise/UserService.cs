@@ -1,14 +1,10 @@
-﻿using ChatAPIProject.Models.InputModels;
-using Service.Contracts;
-using System;
-using AutoMapper;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using AutoMapper;
+
 using ChatAPIProject.Data;
 using ChatAPIProject.Models.DataModels;
 using ChatAPIProject.Models.InputModels.User;
 using Models.ServiceModels.User;
+using Service.Contracts;
 
 namespace ChatAPIProject.Service
 {

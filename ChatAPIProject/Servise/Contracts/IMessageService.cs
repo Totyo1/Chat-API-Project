@@ -1,5 +1,5 @@
-﻿using ChatAPIProject.Models.InputModels.Message;
-using ChatAPIProject.Models.ServiceModels.Message;
+﻿using ChatAPIProject.Models.ServiceModels.Message;
+
 using System.Collections.Generic;
 
 namespace Service.Contracts
