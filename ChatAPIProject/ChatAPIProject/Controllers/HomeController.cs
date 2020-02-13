@@ -34,6 +34,12 @@ namespace ChatAPIProject.Controllers
         [HttpPost]
         public ActionResult Index(HomeLoginInputModel model)
         {
+            if(String.IsNullOrEmpty(model.Username) || String.IsNullOrWhiteSpace(model.Password) || model.Password.Length < 5 || model.Password.Length > 30)
+            {
+                this.ViewData["ErrorMessage"] = ERROR_MESSAGE;
+                return this.View(model);
+            }
+
             var token = this.authenticate.AuthUser(model.Username, model.Password);
 
             if (!ModelState.IsValid || String.IsNullOrWhiteSpace(token))
