@@ -39,7 +39,7 @@ namespace ChatAPIProject.Controllers
                 return this.View(model);
             }
 
-            var token = this.authenticate.AuthUser(model.Username, model.Password);
+            string token = this.authenticate.AuthUser(model.Username, model.Password);
 
             if (!ModelState.IsValid || String.IsNullOrWhiteSpace(token))
             {

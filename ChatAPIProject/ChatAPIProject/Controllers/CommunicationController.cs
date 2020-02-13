@@ -1,7 +1,10 @@
-﻿using ChatAPIProject.Models.InputModels.Communication;
-
+﻿using ChatAPIProject.Models.DataModels;
+using ChatAPIProject.Models.InputModels.Communication;
+using Models.ServiceModels.User;
 using Service.Contracts;
+
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web.Http;
@@ -23,10 +26,10 @@ namespace ChatAPIProject.Controllers
         [Route("All")]
         public IHttpActionResult GetAllCommunications()
         {
-            var userId = this.GetUserId();
+            int userId = NewMethod();
             var communicatons = this.Service.All(userId).ToList();
 
-            if(communicatons.Count() == 0)
+            if (communicatons.Count() == 0)
             {
                 return this.Ok("No available communications.");
             }
@@ -34,17 +37,22 @@ namespace ChatAPIProject.Controllers
             return this.Ok(communicatons);
         }
 
+        private int NewMethod()
+        {
+            return this.GetUserId();
+        }
+
         [HttpGet]
         [Route("GetByUsersIds")]
         public IHttpActionResult GetByUsers(int firstUserId, int secondUserId)
         {
-            var communication1 = this.Service.GetCommunicationByUsers(firstUserId, secondUserId);
-            var communication2 = this.Service.GetCommunicationByUsers(secondUserId, firstUserId);
+            Communication communication1 = this.Service.GetCommunicationByUsers(firstUserId, secondUserId);
+            Communication communication2 = this.Service.GetCommunicationByUsers(secondUserId, firstUserId);
             if (communication1 == null && communication2 == null)
             {
                 return this.BadRequest("This communication does not esixt.");
             }
-            var result = communication1 == null ? communication2 : communication1;
+            Communication result = communication1 == null ? communication2 : communication1;
 
             return this.Ok(result);
         }
@@ -79,16 +87,18 @@ namespace ChatAPIProject.Controllers
 
         private int GetUserId()
         {
-            var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
-            var userId = claims?.FirstOrDefault(x => x.Type.Equals("http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata", StringComparison.OrdinalIgnoreCase))?.Value;
-            var result = int.Parse(userId);
+
+            List<Claim> claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
+            string userId = claims?.FirstOrDefault(x => x.Type.Equals("http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata", StringComparison.OrdinalIgnoreCase))?.Value;
+            int result = int.Parse(userId);
 
             return result;
         }
 
         private bool CheckIfUserExist(int id)
         {
-            var user = this.userService.IsExist(id);
+
+            IsExistUserServiceModel user = this.userService.IsExist(id);
 
             return user != null ? true : false;
         }

@@ -1,4 +1,5 @@
-﻿using ChatAPIProject.Models.ServiceModels.Message;
+﻿using ChatAPIProject.Models.DataModels;
+using ChatAPIProject.Models.ServiceModels.Message;
 
 using Service.Contracts;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace ChatAPIProject.Controllers
         [Route("GetMessages")]
         public IHttpActionResult GetMessages(int communicationId)
         {
-            var communication = this.communicationService.GetCommunicationById(communicationId);
+            Communication communication = this.communicationService.GetCommunicationById(communicationId);
             if (communication == null)
             {
                 return this.BadRequest($"Conversation does not exist.");

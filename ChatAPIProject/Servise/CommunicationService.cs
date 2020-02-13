@@ -19,7 +19,7 @@ namespace ChatAPIProject.Service
 
         public List<CommunicationServiceModel> All(int userId)
         {
-            var allCommunications = this.communicationCode.All(userId)
+            List<CommunicationServiceModel> allCommunications = this.communicationCode.All(userId)
                 .Select(x => new CommunicationServiceModel
                 {
                     Id = x.Id,
@@ -48,7 +48,7 @@ namespace ChatAPIProject.Service
 
         public Communication GetCommunicationById(int communicationId)
         {
-            var communication = this.communicationCode.GetCommunicationById(communicationId);
+            Communication communication = this.communicationCode.GetCommunicationById(communicationId);
 
             return communication;
         }

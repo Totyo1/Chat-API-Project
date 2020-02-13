@@ -6,6 +6,7 @@ using Models.InputModels.FriendRequest;
 using Models.InputModels.Message;
 using Models.InputModels.User;
 using Models.ServiceModels.FriendRequest;
+using Models.ServiceModels.User;
 
 using Service.Contracts;
 using System;
@@ -83,7 +84,7 @@ namespace ChatAPIProject.Controllers
         [Route("FriendRequests")]
         public IHttpActionResult GetFriendRequest()
         {
-            var userId = GetUserId();
+            int userId = GetUserId();
             string status = STATUS_PENDING;
             List<RequestServiceModel> allRequests = this.friendRequestSevice.GetRequestsToMe(userId, status);
             if (allRequests.Count == 0)
@@ -203,8 +204,8 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest($"User with id {model.FriendId} does not exist.");
             }
 
-            var userId = GetUserId();
-            var isRequestExist = this.ChechIfRequestExist(userId, STATUS_PENDING, model.FriendId);
+            int userId = GetUserId();
+            bool isRequestExist = this.ChechIfRequestExist(userId, STATUS_PENDING, model.FriendId);
             if (!isRequestExist)
             {
                 return this.BadRequest($"You don't have request from user with id {model.FriendId}.");
@@ -231,8 +232,8 @@ namespace ChatAPIProject.Controllers
                 return this.BadRequest($"User with id {model.ReceiverId} does not exist.");
             }
 
-            var userId = this.GetUserId();
-            var communication = this.communicationService.GetCommunicationByUsers(userId, model.ReceiverId);
+            int userId = this.GetUserId();
+            Communication communication = this.communicationService.GetCommunicationByUsers(userId, model.ReceiverId);
             if(communication == null)
             {
                 return this.BadRequest($"Communication between this users(me:{userId};receiver:{model.ReceiverId}) does not exist.");
@@ -301,13 +302,13 @@ namespace ChatAPIProject.Controllers
 
         private bool ChechIfRequestExist(int userId,string status, int friendId)
         {
-            var allRequests = this.friendRequestSevice.GetRequestsToMe(userId, STATUS_PENDING);
+            List<RequestServiceModel> allRequests = this.friendRequestSevice.GetRequestsToMe(userId, STATUS_PENDING);
             return allRequests.Any(x => x.FriendId == friendId);
         }
 
         private bool CheckIfUserExist(int id)
         {
-            var user = this.Service.IsExist(id);
+            IsExistUserServiceModel user = this.Service.IsExist(id);
 
             return user != null ? true : false;
         }

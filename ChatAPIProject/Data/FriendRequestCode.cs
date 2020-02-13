@@ -36,7 +36,7 @@ namespace ChatAPIProject.Data
 
         public List<FriendServiceModel> GetFriends(int userId, string status)
         {
-            var list = new List<FriendServiceModel>();
+            List<FriendServiceModel> list = new List<FriendServiceModel>();
             using(SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("tdb_frr_fr", conn);

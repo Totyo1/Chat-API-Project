@@ -22,7 +22,7 @@ namespace ChatAPIProject.Controllers
         [HttpPost]
         public IHttpActionResult Authenticate([FromBody]LoginRequest login)
         {
-            var loginResponse = new LoginResponse { };
+            LoginResponse loginResponse = new LoginResponse { };
             LoginRequest loginRequest = new LoginRequest { };
             loginRequest.Username = login.Username.ToLower();
             loginRequest.Password = login.Password;
